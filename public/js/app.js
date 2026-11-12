@@ -10,46 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     activeTab: 'quests'
   };
 
-  // Preset 10-Goal Archetypes
-  const goalPresets = {
-    master: [
-      { title: 'Morning Physical Training (100 Push-ups / Core)', category: 'Strength', xp: 50 },
-      { title: '10,000 Steps / Cardio Mobility', category: 'Agility', xp: 50 },
-      { title: 'Deep Focus Work / Skill Mastery (2 Hours)', category: 'Intelligence', xp: 60 },
-      { title: 'Drink 2.5 Liters of Pure Water', category: 'Vitality', xp: 30 },
-      { title: 'Read 20 Pages of Knowledge / Wisdom', category: 'Intelligence', xp: 40 },
-      { title: 'Clean Nutrient Hunter Diet (Zero Junk)', category: 'Vitality', xp: 40 },
-      { title: '15 Minutes Meditation & Spiritual Focus', category: 'Spirit', xp: 35 },
-      { title: 'Build or Code Daily Project Feature', category: 'Intelligence', xp: 50 },
-      { title: 'Workspace Cleanse & Organization', category: 'Discipline', xp: 30 },
-      { title: '8 Hours Mana Regeneration Sleep', category: 'Vitality', xp: 50 }
-    ],
-    scholar: [
-      { title: 'Morning Deep Focus Block (90 Minutes)', category: 'Intelligence', xp: 60 },
-      { title: 'Read 30 Pages of Technical / Book Material', category: 'Intelligence', xp: 50 },
-      { title: 'Write / Review 1 Chapter or Code Module', category: 'Intelligence', xp: 50 },
-      { title: 'Solve 2 Algorithmic or Problem-Solving Tasks', category: 'Intelligence', xp: 45 },
-      { title: 'Language or New Skill Practice (20 Mins)', category: 'Spirit', xp: 35 },
-      { title: 'Stay Hydrated (2 Liters Water)', category: 'Vitality', xp: 30 },
-      { title: 'Light Workout or 30 Min Walk', category: 'Agility', xp: 40 },
-      { title: 'Clear Inbox & Priority Task Planning', category: 'Discipline', xp: 30 },
-      { title: 'Review Daily Journal & Lessons Learned', category: 'Spirit', xp: 30 },
-      { title: '8 Hours Restful Sleep Recovery', category: 'Vitality', xp: 50 }
-    ],
-    fitness: [
-      { title: '100 Push-ups & 100 Squats', category: 'Strength', xp: 60 },
-      { title: '5km Endurance Run or High-Intensity Cardio', category: 'Agility', xp: 60 },
-      { title: 'Core Workout & 3-Minute Plank', category: 'Strength', xp: 45 },
-      { title: 'Zero Added Sugar / Clean High Protein Meals', category: 'Vitality', xp: 50 },
-      { title: 'Drink 3 Liters of Water Throughout the Day', category: 'Vitality', xp: 35 },
-      { title: 'Post-Workout Full Body Stretching (15 Mins)', category: 'Agility', xp: 30 },
-      { title: 'Cold Shower / Wim Hof Breathing Session', category: 'Spirit', xp: 35 },
-      { title: '10,000 Total Steps Tracked', category: 'Agility', xp: 40 },
-      { title: 'Prepare Tomorrow’s Nutrition & Gear', category: 'Discipline', xp: 30 },
-      { title: '8 Hours Uninterrupted Sleep', category: 'Vitality', xp: 50 }
-    ]
-  };
-
   // DOM Elements
   const el = {
     // Views
@@ -70,15 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
     gateBtnDemoJinwoo: document.getElementById('gate-btn-demo-jinwoo'),
     gateBtnDemoHunter: document.getElementById('gate-btn-demo-hunter'),
 
-    // Onboarding Modal (Create 10 Goals Flow)
+    // Onboarding Modal (Create Daily Goals Flow)
     modalOnboarding: document.getElementById('modal-onboarding'),
     formOnboardingGoals: document.getElementById('form-onboarding-goals'),
     onboardingGoalsList: document.getElementById('onboarding-goals-list'),
     onboardingGoalCount: document.getElementById('onboarding-goal-count'),
     btnOnboardingAddRow: document.getElementById('btn-onboarding-add-row'),
-    presetMaster: document.getElementById('preset-master'),
-    presetScholar: document.getElementById('preset-scholar'),
-    presetFitness: document.getElementById('preset-fitness'),
+    btnOnboardingSubmit: document.getElementById('btn-onboarding-submit'),
 
     // Dashboard HUD
     themeSelect: document.getElementById('theme-select'),
@@ -218,9 +176,16 @@ document.addEventListener('DOMContentLoaded', () => {
     showAuthGate();
   }
 
-  // --- ONBOARDING FLOW: CREATE 10 GOALS ---
-  function openOnboardingModal(presetKey = 'master') {
-    populateOnboardingRows(goalPresets[presetKey] || goalPresets.master);
+  // --- ONBOARDING FLOW: CREATE DAILY GOALS (ANY NUMBER OF GOALS) ---
+  function openOnboardingModal() {
+    // Provide clean starter template of customizable goals
+    const initialSuggestions = [
+      { title: 'Morning Exercise & Physical Training', category: 'Strength', xp: 50 },
+      { title: 'Deep Focus Work / Primary Daily Task', category: 'Intelligence', xp: 60 },
+      { title: 'Drink Pure Water & Healthy Nutrition', category: 'Vitality', xp: 40 },
+      { title: 'Read Wisdom & Skill Practice (20 Mins)', category: 'Spirit', xp: 40 }
+    ];
+    populateOnboardingRows(initialSuggestions);
     el.modalOnboarding.classList.remove('hidden');
     refreshIcons();
   }
@@ -247,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <span class="w-6 h-6 rounded bg-slate-800 flex items-center justify-center font-orbitron font-bold text-[11px] text-cyan-300 flex-shrink-0 row-index">
         #${rowNum}
       </span>
-      <input type="text" class="goal-row-title flex-1 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-cyan-400" required placeholder="e.g. 100 Push-ups / Read 30 mins" value="${escapeHtml(title)}">
+      <input type="text" class="goal-row-title flex-1 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-cyan-400" required placeholder="Type any goal you want to track..." value="${escapeHtml(title)}">
       <select class="goal-row-cat bg-slate-950 border border-slate-700 rounded px-2 py-1.5 text-slate-300 text-xs focus:outline-none focus:border-cyan-400">
         <option value="Strength" ${category === 'Strength' ? 'selected' : ''}>⚔️ Strength</option>
         <option value="Agility" ${category === 'Agility' ? 'selected' : ''}>⚡ Agility</option>
@@ -283,11 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateOnboardingCounter() {
     const count = el.onboardingGoalsList.querySelectorAll('.onboarding-row').length;
-    el.onboardingGoalCount.textContent = `${count} / 10 Goals Defined`;
-    if (count === 10) {
-      el.onboardingGoalCount.className = 'hud-tag text-emerald-300 border-emerald-400';
-    } else {
-      el.onboardingGoalCount.className = 'hud-tag text-cyan-300 border-cyan-400';
+    el.onboardingGoalCount.textContent = `${count} Goal${count === 1 ? '' : 's'} Defined`;
+    if (el.btnOnboardingSubmit) {
+      el.btnOnboardingSubmit.textContent = `ACTIVATE DAILY QUEST PROTOCOL (${count} GOALS) ➔`;
     }
   }
 
@@ -862,25 +825,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.animeAudio.playThemeSound(selTheme);
         triggerCelebrationConfetti();
 
-        // Direct to create task list for every day
-        openOnboardingModal('master');
+        // Direct to create task list for every day (any number of goals)
+        openOnboardingModal();
       } catch (err) {
         alert(err.message);
       }
-    });
-
-    // Onboarding Presets
-    el.presetMaster.addEventListener('click', () => {
-      populateOnboardingRows(goalPresets.master);
-      window.animeAudio.playClick();
-    });
-    el.presetScholar.addEventListener('click', () => {
-      populateOnboardingRows(goalPresets.scholar);
-      window.animeAudio.playClick();
-    });
-    el.presetFitness.addEventListener('click', () => {
-      populateOnboardingRows(goalPresets.fitness);
-      window.animeAudio.playClick();
     });
 
     // Onboarding Add Row

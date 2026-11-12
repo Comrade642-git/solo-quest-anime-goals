@@ -481,7 +481,7 @@ class QuestDatabase {
     const history = [];
     const now = new Date();
     const goals = this.getUserGoals(userId);
-    const totalGoals = goals.length || 10;
+    const totalGoals = goals.length > 0 ? goals.length : 1;
 
     for (let i = days - 1; i >= 0; i--) {
       const d = new Date();

@@ -191,7 +191,7 @@
         </div>
 
         <button type="submit" class="w-full py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-orbitron tracking-wide text-xs transition shadow-[0_0_20px_rgba(52,211,153,0.5)]">
-          AWAKEN & CONFIGURE DAILY 10 GOALS ➔
+          AWAKEN & CONFIGURE DAILY GOALS ➔
         </button>
       </form>
 
@@ -215,7 +215,7 @@
 
 
   <!-- ============================================================== -->
-  <!-- 2. ONBOARDING: SET UP DAILY 10 GOALS RIGHT AFTER REGISTRATION  -->
+  <!-- 2. ONBOARDING: SET UP DAILY GOALS (ANY NUMBER OF GOALS)        -->
   <!-- ============================================================== -->
   <div id="modal-onboarding" class="modal-overlay hidden">
     <div class="anime-card w-full max-w-2xl p-6 md:p-8 relative border-2 border-emerald-400 shadow-[0_0_50px_rgba(52,211,153,0.4)] max-h-[90vh] overflow-y-auto">
@@ -224,45 +224,30 @@
         <div class="w-14 h-14 mx-auto mb-2 rounded-xl bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-2xl text-emerald-300">
           📜
         </div>
-        <h2 class="text-xl md:text-2xl font-bold font-orbitron text-white text-glow">CONFIGURE YOUR DAILY 10 GOALS</h2>
+        <h2 class="text-xl md:text-2xl font-bold font-orbitron text-white text-glow">CONFIGURE YOUR DAILY GOALS</h2>
         <p class="text-xs text-emerald-300 font-kanji font-bold mt-0.5">毎日の日課鍛錬の設計</p>
         <p class="text-xs text-slate-300 mt-2 max-w-lg mx-auto">
-          Welcome to the Guild! Your hunter strength depends on what you execute daily. Review and customize the 10 goals you want to conquer every day.
+          Welcome to the Guild! Your hunter strength depends on what you execute daily. Set any number of daily habits and goals you want to conquer.
         </p>
       </div>
 
-      <!-- Quick Preset Selector Buttons -->
-      <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 mb-5">
-        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">⚡ Quick 10-Goal Presets:</p>
-        <div class="flex flex-wrap gap-2 text-xs">
-          <button type="button" id="preset-master" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-semibold hover:bg-cyan-500/30 transition">
-            ⚔️ Master Hunter (Balanced 10)
-          </button>
-          <button type="button" id="preset-scholar" class="px-3 py-1.5 rounded-lg bg-purple-500/20 border border-purple-400 text-purple-300 font-semibold hover:bg-purple-500/30 transition">
-            🧠 Scholar & Code Focus
-          </button>
-          <button type="button" id="preset-fitness" class="px-3 py-1.5 rounded-lg bg-orange-500/20 border border-orange-400 text-orange-300 font-semibold hover:bg-orange-500/30 transition">
-            🔥 Iron Beast Fitness
-          </button>
-        </div>
-      </div>
-
-      <!-- 10 Goal Rows Container -->
+      <!-- Goal Rows Container -->
       <form id="form-onboarding-goals" class="space-y-2.5 text-xs">
         <div class="flex items-center justify-between text-xs font-semibold mb-2 px-1">
-          <span class="text-slate-300 font-bold uppercase tracking-wider">Your Daily 10 Objectives:</span>
-          <span id="onboarding-goal-count" class="hud-tag text-emerald-300 border-emerald-400">10 / 10 Goals Defined</span>
+          <span class="text-slate-300 font-bold uppercase tracking-wider">Your Daily Objectives:</span>
+          <span id="onboarding-goal-count" class="hud-tag text-emerald-300 border-emerald-400">0 Goals Defined</span>
         </div>
 
-        <div id="onboarding-goals-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
-          <!-- Dynamically populated 10 inputs -->
+        <div id="onboarding-goals-list" class="space-y-2 max-h-[420px] overflow-y-auto pr-1">
+          <!-- Dynamically populated inputs -->
         </div>
 
-        <div class="pt-2 flex items-center justify-between">
-          <button type="button" id="btn-onboarding-add-row" class="px-3 py-1.5 rounded bg-slate-800 border border-slate-700 hover:border-cyan-400 text-cyan-300 text-xs font-semibold transition">
-            + Add Another Goal
+        <div class="pt-3 flex items-center justify-between">
+          <button type="button" id="btn-onboarding-add-row" class="px-3.5 py-2 rounded-lg bg-slate-800 border border-slate-700 hover:border-cyan-400 text-cyan-300 text-xs font-bold transition flex items-center gap-1.5">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add Another Goal</span>
           </button>
-          <button type="submit" class="px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-orbitron tracking-wide text-xs transition shadow-[0_0_20px_rgba(52,211,153,0.5)]">
+          <button type="submit" id="btn-onboarding-submit" class="px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-orbitron tracking-wide text-xs transition shadow-[0_0_20px_rgba(52,211,153,0.5)]">
             ACTIVATE DAILY QUEST PROTOCOL ➔
           </button>
         </div>
@@ -476,10 +461,10 @@
 
       <!-- Quick Restore Template Footer -->
       <div class="flex items-center justify-between text-xs text-slate-500 pt-2">
-        <span>Need fresh inspirations or want to reset to classic 10 goals?</span>
+        <span>Need inspirations or want to load sample daily quests?</span>
         <button id="btn-restore-defaults" class="text-cyan-400 hover:underline flex items-center gap-1 font-semibold">
           <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-          <span>Summon 10 Classic Hunter Quests</span>
+          <span>Load Recommended Hunter Quests</span>
         </button>
       </div>
 
