@@ -1,0 +1,448 @@
+/* ==========================================================================
+   SOLO QUEST - ANIME DAILY GOAL TRACKER STYLESHEET
+   Cyberpunk / Solo Leveling / Demon Slayer / Ghibli Holographic Aesthetic
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Noto+Sans+JP:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Default: Shadow Monarch (Solo Leveling) */
+  --bg-primary: #070b14;
+  --bg-secondary: #0d1527;
+  --bg-card: rgba(15, 23, 42, 0.78);
+  --bg-card-hover: rgba(26, 38, 66, 0.85);
+  --border-neon: rgba(56, 189, 248, 0.35);
+  --border-glow: rgba(56, 189, 248, 0.6);
+  --accent-primary: #38bdf8;
+  --accent-secondary: #818cf8;
+  --accent-highlight: #c084fc;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --xp-glow: #38bdf8;
+  --system-alert-bg: rgba(14, 165, 233, 0.12);
+  --system-alert-border: #0ea5e9;
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+}
+
+/* Theme: Neo-Tokyo Cyberpunk */
+body[data-theme="cyberpunk"] {
+  --bg-primary: #0a0612;
+  --bg-secondary: #160d29;
+  --bg-card: rgba(28, 16, 48, 0.78);
+  --bg-card-hover: rgba(43, 23, 76, 0.85);
+  --border-neon: rgba(244, 63, 94, 0.38);
+  --border-glow: rgba(244, 63, 94, 0.7);
+  --accent-primary: #f43f5e;
+  --accent-secondary: #06b6d4;
+  --accent-highlight: #facc15;
+  --text-main: #fff1f2;
+  --text-muted: #fda4af;
+  --xp-glow: #f43f5e;
+  --system-alert-bg: rgba(244, 63, 94, 0.12);
+  --system-alert-border: #f43f5e;
+}
+
+/* Theme: Sakura Shrine */
+body[data-theme="sakura"] {
+  --bg-primary: #120914;
+  --bg-secondary: #221226;
+  --bg-card: rgba(41, 18, 46, 0.75);
+  --bg-card-hover: rgba(61, 28, 69, 0.85);
+  --border-neon: rgba(244, 114, 182, 0.4);
+  --border-glow: rgba(244, 114, 182, 0.75);
+  --accent-primary: #f472b6;
+  --accent-secondary: #c084fc;
+  --accent-highlight: #fbbf24;
+  --text-main: #fdf2f8;
+  --text-muted: #f472b6;
+  --xp-glow: #f472b6;
+  --system-alert-bg: rgba(244, 114, 182, 0.12);
+  --system-alert-border: #f472b6;
+}
+
+/* Theme: Flame Hashira */
+body[data-theme="flame"] {
+  --bg-primary: #120907;
+  --bg-secondary: #24110b;
+  --bg-card: rgba(44, 18, 12, 0.78);
+  --bg-card-hover: rgba(66, 26, 17, 0.85);
+  --border-neon: rgba(249, 115, 22, 0.4);
+  --border-glow: rgba(239, 68, 68, 0.75);
+  --accent-primary: #f97316;
+  --accent-secondary: #ef4444;
+  --accent-highlight: #facc15;
+  --text-main: #fff7ed;
+  --text-muted: #fdba74;
+  --xp-glow: #f97316;
+  --system-alert-bg: rgba(249, 115, 22, 0.12);
+  --system-alert-border: #f97316;
+}
+
+/* Theme: Ghibli Meadow */
+body[data-theme="ghibli"] {
+  --bg-primary: #08130e;
+  --bg-secondary: #0f241c;
+  --bg-card: rgba(15, 38, 29, 0.78);
+  --bg-card-hover: rgba(23, 56, 43, 0.85);
+  --border-neon: rgba(52, 211, 153, 0.4);
+  --border-glow: rgba(52, 211, 153, 0.75);
+  --accent-primary: #34d399;
+  --accent-secondary: #38bdf8;
+  --accent-highlight: #fbbf24;
+  --text-main: #ecfdf5;
+  --text-muted: #6ee7b7;
+  --xp-glow: #34d399;
+  --system-alert-bg: rgba(52, 211, 153, 0.12);
+  --system-alert-border: #34d399;
+}
+
+/* Base resets & fonts */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: border-color 0.2s, background-color 0.25s, box-shadow 0.25s;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Font styles */
+.font-orbitron {
+  font-family: 'Orbitron', monospace, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.font-kanji {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* Background Particle Canvas */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanlines and Cyber Grid Overlay */
+.cyber-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.35;
+}
+
+/* Container content above overlay */
+.app-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem 1rem;
+}
+
+/* Glassmorphism Card Style */
+.anime-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-neon);
+  box-shadow: var(--card-shadow);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.anime-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+  opacity: 0.8;
+}
+
+.anime-card:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.25);
+}
+
+/* System Quest Alert HUD */
+.system-alert {
+  background: var(--system-alert-bg);
+  border: 1px solid var(--system-alert-border);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+  border-radius: 10px;
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(56, 189, 248, 0.45);
+  }
+}
+
+/* Hologram Tag / Badges */
+.hud-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-neon);
+  color: var(--accent-primary);
+}
+
+/* Animated Progress Bars */
+.progress-container {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
+  box-shadow: 0 0 16px var(--xp-glow);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Custom Anime Quest Checkbox */
+.quest-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--border-neon);
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.6);
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: all 0.25s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.quest-checkbox:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-primary);
+  transform: scale(1.08);
+}
+
+.quest-checkbox:checked {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 16px var(--accent-primary);
+}
+
+.quest-checkbox:checked::after {
+  content: '✓';
+  color: #050811;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Quest Card Completed State */
+.quest-item.is-completed {
+  opacity: 0.65;
+  background: rgba(15, 23, 42, 0.45);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+.quest-item.is-completed .quest-title {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+/* Glowing text */
+.text-glow {
+  text-shadow: 0 0 12px var(--accent-primary);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 14px rgba(250, 204, 21, 0.6);
+}
+
+/* Rank Medallion Ring */
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 0 20px var(--accent-primary);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(15, 23, 42, 0.8) 100%);
+  animation: rank-ring 4s infinite linear;
+}
+
+/* Floating animation */
+.animate-float {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* XP floating tag popup */
+@keyframes xp-float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.9);
+  }
+}
+
+.floating-xp-popup {
+  position: absolute;
+  pointer-events: none;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  color: #facc15;
+  text-shadow: 0 0 10px rgba(250, 204, 21, 0.8);
+  animation: xp-float-up 1.2s forwards ease-out;
+  z-index: 100;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-neon);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Heatmap day cells */
+.heat-cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.heat-cell:hover {
+  transform: scale(1.4);
+  box-shadow: 0 0 10px var(--accent-primary);
+  z-index: 10;
+}
+
+.heat-0 { background: rgba(255, 255, 255, 0.05); }
+.heat-1 { background: rgba(56, 189, 248, 0.25); }
+.heat-2 { background: rgba(56, 189, 248, 0.5); }
+.heat-3 { background: rgba(56, 189, 248, 0.75); }
+.heat-4 { background: #38bdf8; box-shadow: 0 0 8px rgba(56, 189, 248, 0.7); }
+
+/* Modal Backdrop */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(3, 7, 18, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}

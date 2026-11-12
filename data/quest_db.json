@@ -1,0 +1,1261 @@
+{
+  "users": [
+    {
+      "id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "username": "jinwoo",
+      "password_hash": "f45fcf8bc6f8a545b557f30665c9f49e15524bf55767733e71bc279abc635acdff6f43bf250daf4d396106170a9c889f26116b7347388191152212829c6ff58d",
+      "salt": "d6af6514b33656c373ce851428be8eea",
+      "display_name": "Sung Jin-Woo",
+      "avatar": "jinwoo",
+      "theme": "monarch",
+      "xp": 3470,
+      "current_streak": 14,
+      "best_streak": 15,
+      "last_active_date": "2026-11-13",
+      "created_at": "2026-10-29T19:17:48.506Z"
+    },
+    {
+      "id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "username": "hunter",
+      "password_hash": "48d0b650089b5779201f8dbd186cb440729bc53444372a10086647ec112d4ce0f40e2d8de5bbe9975e928de1d3f7f11cf7e71a24f1486a7f3f7925050f13f127",
+      "salt": "15898efd8a7feb79c73b4230757f1d23",
+      "display_name": "Novice Hunter",
+      "avatar": "cyberpunk",
+      "theme": "cyberpunk",
+      "xp": 450,
+      "current_streak": 3,
+      "best_streak": 5,
+      "last_active_date": "2026-11-13",
+      "created_at": "2026-11-08T19:17:48.509Z"
+    }
+  ],
+  "goals": [
+    {
+      "id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Morning Physical Training (100 Push-ups / 100 Sit-ups)",
+      "description": "Sharpen your hunter physique with core endurance.",
+      "category": "Strength",
+      "xp_reward": 50,
+      "icon": "dumbbell",
+      "order_index": 0,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Endurance Run or 10,000 Steps",
+      "description": "Build agility and speed for dungeon runs.",
+      "category": "Agility",
+      "xp_reward": 50,
+      "icon": "flame",
+      "order_index": 1,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Deep Work / Skill Mastery (2 Hours)",
+      "description": "Conquer the intellectual dungeon with zero distraction.",
+      "category": "Intelligence",
+      "xp_reward": 60,
+      "icon": "brain",
+      "order_index": 2,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Drink 2.5 Liters of Pure Water",
+      "description": "Hydrate mana reserves for cellular restoration.",
+      "category": "Vitality",
+      "xp_reward": 30,
+      "icon": "droplet",
+      "order_index": 3,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Read 20 Pages of Knowledge / Wisdom",
+      "description": "Absorb ancient grimoires or modern tactical knowledge.",
+      "category": "Intelligence",
+      "xp_reward": 40,
+      "icon": "book-open",
+      "order_index": 4,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Clean & Nutritious Hunter Fuel (No Junk)",
+      "description": "Fuel the vessel with high-tier nutrient rations.",
+      "category": "Vitality",
+      "xp_reward": 40,
+      "icon": "apple",
+      "order_index": 5,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "15 Minutes Meditation & Breathwork",
+      "description": "Calm the spiritual aura and focus mental mana.",
+      "category": "Spirit",
+      "xp_reward": 35,
+      "icon": "wind",
+      "order_index": 6,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Code or Build a Creative Project Task",
+      "description": "Forge modern tech weapons and forge your digital empire.",
+      "category": "Intelligence",
+      "xp_reward": 50,
+      "icon": "code",
+      "order_index": 7,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "Sanctuary Organization & Room Cleansing",
+      "description": "Maintain an orderly base camp for supreme efficiency.",
+      "category": "Discipline",
+      "xp_reward": 30,
+      "icon": "sparkles",
+      "order_index": 8,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "509a2753-bf60-4362-aac9-3a24f0aac2e6",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "title": "8 Hours Mana Regeneration Sleep",
+      "description": "Rest fully before the next dungeon gate opens at dawn.",
+      "category": "Vitality",
+      "xp_reward": 50,
+      "icon": "moon",
+      "order_index": 9,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.506Z"
+    },
+    {
+      "id": "e19b4d69-fbbf-4750-a5b4-3a4082a61aed",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Morning Physical Training (100 Push-ups / 100 Sit-ups)",
+      "description": "Sharpen your hunter physique with core endurance.",
+      "category": "Strength",
+      "xp_reward": 50,
+      "icon": "dumbbell",
+      "order_index": 0,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "5da0bb13-3b46-4f4c-a531-14e8dcec126a",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Endurance Run or 10,000 Steps",
+      "description": "Build agility and speed for dungeon runs.",
+      "category": "Agility",
+      "xp_reward": 50,
+      "icon": "flame",
+      "order_index": 1,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "30b3d1e9-bf5d-4fe5-bda0-b2ecd89cde47",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Deep Work / Skill Mastery (2 Hours)",
+      "description": "Conquer the intellectual dungeon with zero distraction.",
+      "category": "Intelligence",
+      "xp_reward": 60,
+      "icon": "brain",
+      "order_index": 2,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "b6bde9db-9089-43ec-834d-3fba2c73748b",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Drink 2.5 Liters of Pure Water",
+      "description": "Hydrate mana reserves for cellular restoration.",
+      "category": "Vitality",
+      "xp_reward": 30,
+      "icon": "droplet",
+      "order_index": 3,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "6211f33a-37c0-4cc3-8429-6165e5504dc0",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Read 20 Pages of Knowledge / Wisdom",
+      "description": "Absorb ancient grimoires or modern tactical knowledge.",
+      "category": "Intelligence",
+      "xp_reward": 40,
+      "icon": "book-open",
+      "order_index": 4,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "4cccf78d-f65a-4d83-acc4-be71b5da1ed1",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Clean & Nutritious Hunter Fuel (No Junk)",
+      "description": "Fuel the vessel with high-tier nutrient rations.",
+      "category": "Vitality",
+      "xp_reward": 40,
+      "icon": "apple",
+      "order_index": 5,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "27d713bb-d109-42f1-8475-d633c5271a45",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "15 Minutes Meditation & Breathwork",
+      "description": "Calm the spiritual aura and focus mental mana.",
+      "category": "Spirit",
+      "xp_reward": 35,
+      "icon": "wind",
+      "order_index": 6,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "f9c2e99d-35d4-4ad4-9969-5d064a95f8ce",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Code or Build a Creative Project Task",
+      "description": "Forge modern tech weapons and forge your digital empire.",
+      "category": "Intelligence",
+      "xp_reward": 50,
+      "icon": "code",
+      "order_index": 7,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "bf4636af-c676-423b-ac31-21a165fe772d",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "Sanctuary Organization & Room Cleansing",
+      "description": "Maintain an orderly base camp for supreme efficiency.",
+      "category": "Discipline",
+      "xp_reward": 30,
+      "icon": "sparkles",
+      "order_index": 8,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "bd0eef81-849e-442e-8853-c883681edd08",
+      "user_id": "b0116932-acce-4016-9c2f-c460e249921c",
+      "title": "8 Hours Mana Regeneration Sleep",
+      "description": "Rest fully before the next dungeon gate opens at dawn.",
+      "category": "Vitality",
+      "xp_reward": 50,
+      "icon": "moon",
+      "order_index": 9,
+      "is_active": true,
+      "created_at": "2026-11-12T19:17:48.509Z"
+    }
+  ],
+  "daily_logs": [
+    {
+      "id": "dfac3af9-4dde-4146-bc06-9fb4b1498331",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-30T19:17:48.507Z"
+    },
+    {
+      "id": "e0abd404-1490-45d7-b404-56720c63f118",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-30T20:17:48.507Z"
+    },
+    {
+      "id": "78bb3dd3-b69e-4e40-abab-d5e4b0cbe51d",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-30T21:17:48.507Z"
+    },
+    {
+      "id": "c461d81b-fa80-4f6c-8f03-9981e08cd3fb",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-30T22:17:48.507Z"
+    },
+    {
+      "id": "6efafdd6-6085-41ce-8d4e-6f97518290b4",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-30T23:17:48.507Z"
+    },
+    {
+      "id": "0e5c0fd6-f4c1-4a16-b3b5-bf845e988a3b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-31T00:17:48.507Z"
+    },
+    {
+      "id": "285cfba6-a92e-4eea-996c-86d8d3930435",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-31T01:17:48.507Z"
+    },
+    {
+      "id": "08d0af86-b3c7-4951-8be5-4db54c5e1dbd",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-10-30",
+      "completed": true,
+      "completed_at": "2026-10-31T02:17:48.507Z"
+    },
+    {
+      "id": "225621cc-1983-4713-9235-afc091201fc3",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-10-31T19:17:48.507Z"
+    },
+    {
+      "id": "15273dee-caf5-4e48-beff-b72c9b3bc0c8",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-10-31T20:17:48.507Z"
+    },
+    {
+      "id": "ac1482d4-7da9-449a-a55d-bc181bb2443a",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-10-31T21:17:48.507Z"
+    },
+    {
+      "id": "c303d826-6d92-4a70-adc0-d0e5ccf400f5",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-10-31T22:17:48.507Z"
+    },
+    {
+      "id": "e27e6440-a03a-4724-8f1f-51d50ba84425",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-10-31T23:17:48.507Z"
+    },
+    {
+      "id": "0a9b585e-f04d-4339-8261-490e135a51c6",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-11-01T00:17:48.507Z"
+    },
+    {
+      "id": "6eeac1fe-dbe1-4cd4-aec7-aaef40e76fb1",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-11-01T01:17:48.507Z"
+    },
+    {
+      "id": "e2979550-b1ea-4d92-88fa-5adc06b7da79",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-11-01T02:17:48.507Z"
+    },
+    {
+      "id": "9ab41a98-d605-47df-9cb7-2f425d6eb5a8",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-10-31",
+      "completed": true,
+      "completed_at": "2026-11-01T03:17:48.507Z"
+    },
+    {
+      "id": "681e5bd3-8a4e-48a9-be80-868a41612e52",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-01T19:17:48.507Z"
+    },
+    {
+      "id": "bc1fc1aa-bcf8-4a53-b9af-a799f6b63557",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-01T20:17:48.507Z"
+    },
+    {
+      "id": "c724b6bf-eaaa-4ae7-92f6-f4f76c2c0bca",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-01T21:17:48.507Z"
+    },
+    {
+      "id": "cb469d52-122f-4f91-97bb-69de6f279e4b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-01T22:17:48.507Z"
+    },
+    {
+      "id": "c0d49e87-f9f1-4978-8b39-482b37be590a",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-01T23:17:48.507Z"
+    },
+    {
+      "id": "25278d81-adc1-4949-85d0-c47b4f859c49",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-02T00:17:48.507Z"
+    },
+    {
+      "id": "0b394fa2-2cac-472b-81ff-29ccc1714f50",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-02T01:17:48.507Z"
+    },
+    {
+      "id": "4545721c-fbd2-4244-953b-7189e11bfb77",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-01",
+      "completed": true,
+      "completed_at": "2026-11-02T02:17:48.507Z"
+    },
+    {
+      "id": "5be3859b-d18f-4162-81b2-a251bda5cf00",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-02T19:17:48.507Z"
+    },
+    {
+      "id": "2c305e3b-b644-43f4-8ac5-37d7bad9b3c0",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-02T20:17:48.507Z"
+    },
+    {
+      "id": "01bf0d53-1e96-408c-9d3d-0bbde53b2646",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-02T21:17:48.507Z"
+    },
+    {
+      "id": "42fa1ff4-beab-4cc3-bdc8-eb3e9329034d",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-02T22:17:48.507Z"
+    },
+    {
+      "id": "92cd1129-4632-41e6-9098-dbc1c296f5a5",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-02T23:17:48.507Z"
+    },
+    {
+      "id": "7d4d1d63-93b4-4692-83cf-b821e9f92621",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-03T00:17:48.507Z"
+    },
+    {
+      "id": "c895c71b-68e5-4ef7-9646-a54a619a4479",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-03T01:17:48.507Z"
+    },
+    {
+      "id": "ce3c4781-bc5d-4893-b675-4e1dc129392a",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-03T02:17:48.507Z"
+    },
+    {
+      "id": "7353d1d9-c7d1-408c-a30a-1f48e92a9d58",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-11-02",
+      "completed": true,
+      "completed_at": "2026-11-03T03:17:48.507Z"
+    },
+    {
+      "id": "50ecf19c-11ef-4393-8484-1a0d666170f7",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-03T19:17:48.507Z"
+    },
+    {
+      "id": "355dc512-538c-4923-bbdf-187b78388b1a",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-03T20:17:48.507Z"
+    },
+    {
+      "id": "1b662c6c-048f-494c-a59f-351cbab8699d",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-03T21:17:48.507Z"
+    },
+    {
+      "id": "f108b54c-cdb2-4da2-bee1-81a3afaa369f",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-03T22:17:48.507Z"
+    },
+    {
+      "id": "5e2b08f8-70b2-4958-8919-5560c9c0037f",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-03T23:17:48.507Z"
+    },
+    {
+      "id": "670b7151-d08e-4f5f-99a4-205265d59bf7",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-04T00:17:48.507Z"
+    },
+    {
+      "id": "61e168e6-32ef-43ce-b0c0-79ad3bd24367",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-04T01:17:48.507Z"
+    },
+    {
+      "id": "db5ab6d9-7309-4fda-8d1b-691d1b8ba201",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-03",
+      "completed": true,
+      "completed_at": "2026-11-04T02:17:48.507Z"
+    },
+    {
+      "id": "86e448b1-3264-45b1-b1b9-e2c2f69ed19d",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-04T19:17:48.507Z"
+    },
+    {
+      "id": "b9e952b7-c127-4463-821f-d3431e714569",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-04T20:17:48.507Z"
+    },
+    {
+      "id": "c7d692b3-d576-4395-984a-a1287d5f9ff4",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-04T21:17:48.507Z"
+    },
+    {
+      "id": "3d186825-0cb6-451c-ab9b-b624f4c9f5a4",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-04T22:17:48.507Z"
+    },
+    {
+      "id": "0bfb4910-334b-4f64-8a9f-de7874e31d7b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-04T23:17:48.507Z"
+    },
+    {
+      "id": "369603ef-e3d4-4d46-91aa-24f6638b5177",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-05T00:17:48.507Z"
+    },
+    {
+      "id": "7c5cd0b7-0b1d-48e1-a19b-10d38e423ccd",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-05T01:17:48.507Z"
+    },
+    {
+      "id": "f3980d85-0ca4-4e98-b848-36a340ce93e3",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-05T02:17:48.507Z"
+    },
+    {
+      "id": "a73e1937-624f-42cd-b8cc-59d8de25a6d3",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-05T03:17:48.507Z"
+    },
+    {
+      "id": "be685b8f-e582-4668-8bef-eaaae47d38fa",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "509a2753-bf60-4362-aac9-3a24f0aac2e6",
+      "date": "2026-11-04",
+      "completed": true,
+      "completed_at": "2026-11-05T04:17:48.507Z"
+    },
+    {
+      "id": "1fea632a-ce5f-4995-aafb-190e6cdbdf12",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-05T19:17:48.507Z"
+    },
+    {
+      "id": "07d13c4b-5bdc-4126-9126-ed27fc9c202a",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-05T20:17:48.507Z"
+    },
+    {
+      "id": "934d4fbc-36e4-400c-9f1c-605399af2d77",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-05T21:17:48.507Z"
+    },
+    {
+      "id": "78d0fefa-29f6-448a-878f-19173980dfdb",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-05T22:17:48.507Z"
+    },
+    {
+      "id": "5a44782e-d019-4b55-87c9-a2a50696068d",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-05T23:17:48.507Z"
+    },
+    {
+      "id": "c497a28b-1023-4fa8-b6db-93ef07ff7a57",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-06T00:17:48.507Z"
+    },
+    {
+      "id": "f1c4726c-f1dd-4745-bb0e-8713ca14a924",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-06T01:17:48.507Z"
+    },
+    {
+      "id": "97d59444-73c4-407f-b92b-451f6bebf97f",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-06T02:17:48.507Z"
+    },
+    {
+      "id": "61e2e755-e934-4ed1-bd26-889a6b7409bf",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-11-05",
+      "completed": true,
+      "completed_at": "2026-11-06T03:17:48.507Z"
+    },
+    {
+      "id": "0dc77f43-7f0e-4bc8-a9af-ce14e7388e60",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-06T19:17:48.507Z"
+    },
+    {
+      "id": "01f2e97b-8eb0-411b-b0ac-1d17ab1a7718",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-06T20:17:48.507Z"
+    },
+    {
+      "id": "87c72c24-b959-4c83-afd9-d1ce17159f1b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-06T21:17:48.507Z"
+    },
+    {
+      "id": "01af1399-9e55-46bd-b5fb-19cddbca56f5",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-06T22:17:48.507Z"
+    },
+    {
+      "id": "fecbbd7c-6629-4de9-a445-c18f45fe2a30",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-06T23:17:48.507Z"
+    },
+    {
+      "id": "b5924ec3-a9d1-419a-87db-e643d19dcbb0",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-07T00:17:48.507Z"
+    },
+    {
+      "id": "31a643bf-7bac-4b99-9978-919aeb4117ce",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-07T01:17:48.507Z"
+    },
+    {
+      "id": "ceb95fb1-d1e4-43a7-bc5c-3d22eca23f90",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-07T02:17:48.507Z"
+    },
+    {
+      "id": "89ee4093-09aa-424b-a79e-e1c05d723908",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-11-06",
+      "completed": true,
+      "completed_at": "2026-11-07T03:17:48.507Z"
+    },
+    {
+      "id": "bb2596d5-0802-4909-974c-6a22b51ddc73",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-07T19:17:48.507Z"
+    },
+    {
+      "id": "fb401482-ad26-4450-bcd5-047c58e0161f",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-07T20:17:48.507Z"
+    },
+    {
+      "id": "58ce6a67-d9c8-4bd6-b893-2c4e246947e3",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-07T21:17:48.507Z"
+    },
+    {
+      "id": "ddd75e2d-61f7-4c5c-b421-366b827dc7cc",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-07T22:17:48.507Z"
+    },
+    {
+      "id": "1312cea8-bd68-4c7e-9c2a-ee468004e41a",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-07T23:17:48.507Z"
+    },
+    {
+      "id": "586c1745-05e6-49c9-8ca6-9e51702e31cc",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-08T00:17:48.507Z"
+    },
+    {
+      "id": "60746f5d-9da1-43f6-83b7-2b087d7f9b47",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-08T01:17:48.507Z"
+    },
+    {
+      "id": "7460abb5-7e28-49d2-ae71-70bbc31ec600",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-08T02:17:48.507Z"
+    },
+    {
+      "id": "5df1cc8e-0243-467c-94e3-9a42a4229913",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-08T03:17:48.507Z"
+    },
+    {
+      "id": "2389d412-097c-4ab9-9e78-7c81a4ad00f5",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "509a2753-bf60-4362-aac9-3a24f0aac2e6",
+      "date": "2026-11-07",
+      "completed": true,
+      "completed_at": "2026-11-08T04:17:48.507Z"
+    },
+    {
+      "id": "6b5278fb-3055-40bb-bead-fae8a5c26295",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-08T19:17:48.507Z"
+    },
+    {
+      "id": "80aaa97b-ac10-412b-94be-2f21455d42a7",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-08T20:17:48.507Z"
+    },
+    {
+      "id": "313b6893-998a-4824-a545-044da40cda18",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-08T21:17:48.507Z"
+    },
+    {
+      "id": "3ae57c31-0967-4f2e-8d52-51dbcb046e77",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-08T22:17:48.507Z"
+    },
+    {
+      "id": "3a7e3dec-f7c2-43f8-9613-b971c8fd61a1",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-08T23:17:48.507Z"
+    },
+    {
+      "id": "45f4ed92-3a41-41d3-98d8-e475ed06e8a7",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-09T00:17:48.507Z"
+    },
+    {
+      "id": "e00eab4f-2bdb-4dd0-b41b-1e682d4ec282",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-09T01:17:48.507Z"
+    },
+    {
+      "id": "08105d98-e2ab-4b51-80d3-719a5fe4e962",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-09T02:17:48.507Z"
+    },
+    {
+      "id": "2e114f3e-a27a-4038-8e33-d9c5b86c2344",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-11-08",
+      "completed": true,
+      "completed_at": "2026-11-09T03:17:48.507Z"
+    },
+    {
+      "id": "6bd57b0c-c849-4fff-8fad-0feef34d4646",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-09T19:17:48.507Z"
+    },
+    {
+      "id": "a27c215e-2420-4854-9b54-407a05c8d849",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-09T20:17:48.507Z"
+    },
+    {
+      "id": "16e77b3e-98fb-4205-9f20-91e6acef83a0",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-09T21:17:48.507Z"
+    },
+    {
+      "id": "d237072c-5d82-4e1d-a537-2c16041e5a8e",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-09T22:17:48.507Z"
+    },
+    {
+      "id": "ed1e5e5b-e9a2-4d09-9911-d51f90bc9067",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-09T23:17:48.507Z"
+    },
+    {
+      "id": "f5b4438b-6960-474c-b63f-0c5693e505fb",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-10T00:17:48.507Z"
+    },
+    {
+      "id": "82a6c6b1-9a1c-4900-868a-29675470fa43",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-10T01:17:48.507Z"
+    },
+    {
+      "id": "0d2a1e6f-9d6a-4aff-a2f8-9577dbbae22f",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-10T02:17:48.507Z"
+    },
+    {
+      "id": "5aaf38d9-3e85-4643-8d0d-f58a4be0c29d",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "d50069a4-c799-4ba6-8326-e2b5b9342da5",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-10T03:17:48.507Z"
+    },
+    {
+      "id": "05e317e3-7981-4ad9-829a-1d56ccb6c79e",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "509a2753-bf60-4362-aac9-3a24f0aac2e6",
+      "date": "2026-11-09",
+      "completed": true,
+      "completed_at": "2026-11-10T04:17:48.507Z"
+    },
+    {
+      "id": "91bb24e5-0e8e-4ae9-b8f7-39845d610b23",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-10T19:17:48.507Z"
+    },
+    {
+      "id": "07e44f19-18dc-480d-8f15-fe6caf50324b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-10T20:17:48.507Z"
+    },
+    {
+      "id": "65045ef8-0c13-4f6a-8705-bbb6a7127590",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-10T21:17:48.507Z"
+    },
+    {
+      "id": "4eb56647-64c5-4de5-96d4-d1c1c940385b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-10T22:17:48.507Z"
+    },
+    {
+      "id": "e048da54-4400-407b-9f40-86918dbbb583",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-10T23:17:48.507Z"
+    },
+    {
+      "id": "53db5b2b-ed8d-4b10-9c1e-86988e46f92a",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-11T00:17:48.507Z"
+    },
+    {
+      "id": "07a10d25-ead5-4233-b394-2a323316526b",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-11T01:17:48.507Z"
+    },
+    {
+      "id": "39ad13d2-a888-4675-a68b-ea5766067a83",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-10",
+      "completed": true,
+      "completed_at": "2026-11-11T02:17:48.507Z"
+    },
+    {
+      "id": "d43994f2-ef5a-4d3b-8174-94ab709f0dbc",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-11T19:17:48.507Z"
+    },
+    {
+      "id": "04aa689f-c66c-4676-98c9-e904353f0e5e",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-11T20:17:48.507Z"
+    },
+    {
+      "id": "86243610-5336-461f-9b8e-907e6c2584a0",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-11T21:17:48.507Z"
+    },
+    {
+      "id": "292f45a0-a312-4b24-aef9-15650ce52680",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-11T22:17:48.507Z"
+    },
+    {
+      "id": "4ed00686-20e7-4d72-8bb3-ed2115c6c58e",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-11T23:17:48.507Z"
+    },
+    {
+      "id": "0d053157-d6e9-484e-b4bf-16dd8edaa305",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-12T00:17:48.507Z"
+    },
+    {
+      "id": "a3484efa-4831-468a-843b-a9000b565464",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-12T01:17:48.507Z"
+    },
+    {
+      "id": "3acd2685-3a4c-4776-9e24-11a4e9d0e072",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "4a1a9b6f-ff1a-449c-9dec-aa0e1ccc5776",
+      "date": "2026-11-11",
+      "completed": true,
+      "completed_at": "2026-11-12T02:17:48.507Z"
+    },
+    {
+      "id": "0aad780a-80c0-4c0d-b0ca-364093addbd3",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-12",
+      "completed": true,
+      "completed_at": "2026-11-12T19:17:48.507Z"
+    },
+    {
+      "id": "b2b97604-d142-4c61-be61-f680be5563b4",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "fe3543c3-65bf-42a7-aa2c-a9ea0eb8355b",
+      "date": "2026-11-12",
+      "completed": true,
+      "completed_at": "2026-11-12T20:17:48.507Z"
+    },
+    {
+      "id": "ea12b211-b9df-4a61-b23f-03c6a74722c3",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a0130ee5-f15c-4e1e-b381-b4a4b0617874",
+      "date": "2026-11-12",
+      "completed": true,
+      "completed_at": "2026-11-12T21:17:48.508Z"
+    },
+    {
+      "id": "f3ce93f0-0192-459b-806b-ed28ff20cc93",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "22a560ea-75df-4ae7-b7e2-f6a819f5d973",
+      "date": "2026-11-12",
+      "completed": true,
+      "completed_at": "2026-11-12T22:17:48.508Z"
+    },
+    {
+      "id": "2e466bd7-3529-40d4-97d2-fb682fcbf918",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "a4fe6ad4-c751-419f-a138-c4ee1c4c38e5",
+      "date": "2026-11-12",
+      "completed": true,
+      "completed_at": "2026-11-12T23:17:48.508Z"
+    },
+    {
+      "id": "6db269f5-8b4f-4d75-91cf-8ea2b919a741",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "86e085e8-c5b7-4f89-931e-882398e58f23",
+      "date": "2026-11-12",
+      "completed": true,
+      "completed_at": "2026-11-13T00:17:48.508Z"
+    },
+    {
+      "id": "80e7f623-514f-4c73-a4f4-7bbc8d5c94d4",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "f10d23d8-834b-412e-9638-aa522846d733",
+      "date": "2026-11-12",
+      "completed": true,
+      "completed_at": "2026-11-13T01:17:48.508Z"
+    },
+    {
+      "id": "d76560ae-873c-4dd7-9337-93f3605d95ce",
+      "user_id": "bf2c5732-cfe2-49c6-9961-f0faf26ac762",
+      "goal_id": "0a78a55b-a24f-4c8f-8ee5-b4d2632a30e2",
+      "date": "2026-11-13",
+      "completed": true,
+      "completed_at": "2026-11-12T19:19:39.291Z"
+    }
+  ],
+  "user_stats": []
+}

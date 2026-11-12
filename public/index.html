@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo Quest — Daily Anime Goal Tracker</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Anime Stylesheet -->
+  <link rel="stylesheet" href="css/anime-theme.css">
+</head>
+<body data-theme="monarch">
+
+  <!-- Background Canvas for Anime Particles (Sakura, Mana Dust, Embers) -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="cyber-grid"></div>
+  <div class="scanlines"></div>
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- Top Navigation & System HUD -->
+    <header class="flex flex-wrap items-center justify-between gap-4 mb-6 anime-card p-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center bg-cyan-500/20 border border-cyan-400 shadow-[0_0_15px_rgba(56,189,248,0.5)]">
+          <i data-lucide="swords" class="w-6 h-6 text-cyan-400"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-bold font-orbitron tracking-wider text-glow text-white">SOLO QUEST</h1>
+            <span class="hud-tag">SYSTEM v2.4</span>
+          </div>
+          <p class="text-xs text-slate-400 font-kanji">デイリークエスト • 日課鍛錬システム</p>
+        </div>
+      </div>
+
+      <!-- Controls: Theme, Sound, Hunter Switcher -->
+      <div class="flex items-center flex-wrap gap-2.5">
+        <!-- Theme Selector -->
+        <div class="relative inline-block text-left">
+          <select id="theme-select" class="bg-slate-900/80 text-xs font-semibold px-3 py-2 rounded-lg border border-slate-700 hover:border-cyan-400 focus:outline-none cursor-pointer text-slate-200">
+            <option value="monarch">⚔️ Shadow Monarch (Solo Leveling)</option>
+            <option value="cyberpunk">⚡ Neo-Tokyo (Cyberpunk)</option>
+            <option value="sakura">🌸 Sakura Shrine (Twilight)</option>
+            <option value="flame">🔥 Flame Hashira (Demon Slayer)</option>
+            <option value="ghibli">🍃 Ghibli Meadow (Serene)</option>
+          </select>
+        </div>
+
+        <!-- Audio Toggle Button -->
+        <button id="btn-sound-toggle" class="p-2 rounded-lg bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-cyan-400 transition" title="Toggle Anime Sound SFX">
+          <i id="sound-icon" data-lucide="volume-2" class="w-4 h-4"></i>
+        </button>
+
+        <!-- Switch / Login Button -->
+        <button id="btn-hunter-profile" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-400/40 hover:border-cyan-400 text-xs font-semibold text-cyan-300 transition">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          <span>Switch Hunter</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hunter Profile & Stats Card -->
+    <section id="hunter-card" class="anime-card p-5 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+        
+        <!-- Hunter Avatar & Rank Badge -->
+        <div class="md:col-span-5 flex items-center gap-4">
+          <div class="relative">
+            <div id="hunter-avatar-img" class="w-16 h-16 rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.5)] flex items-center justify-center bg-slate-800 text-2xl font-bold font-orbitron text-cyan-300">
+              JW
+            </div>
+            <div id="rank-badge" class="absolute -bottom-1 -right-1 rank-badge text-xs" style="width: 28px; height: 28px; font-size: 0.75rem;">
+              S
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 id="hunter-name" class="text-lg font-bold font-rajdhani tracking-wide text-white">Sung Jin-Woo</h2>
+              <span id="rank-title" class="hud-tag">Shadow Monarch</span>
+            </div>
+            <p id="hunter-sub" class="text-xs text-slate-400 mt-0.5">Rank: <span id="rank-name" class="text-cyan-400 font-semibold">S-Rank Hunter</span></p>
+            
+            <!-- Streak Flame -->
+            <div class="flex items-center gap-1.5 mt-1.5 text-xs font-semibold text-amber-400">
+              <span class="text-base animate-pulse">🔥</span>
+              <span id="streak-count">12 Days Active Streak</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hunter Level & XP Progress Bar -->
+        <div class="md:col-span-7">
+          <div class="flex items-center justify-between text-xs font-rajdhani font-semibold mb-1.5">
+            <div class="flex items-center gap-2">
+              <span class="text-cyan-400 font-orbitron font-bold">LEVEL <span id="hunter-level">14</span></span>
+              <span class="text-slate-500">|</span>
+              <span id="hunter-xp-label" class="text-slate-300">1,450 / 2,000 XP</span>
+            </div>
+            <span id="hunter-xp-percent" class="text-cyan-300 font-bold">72%</span>
+          </div>
+
+          <div class="progress-container h-3.5 mb-2">
+            <div id="hunter-xp-bar" class="progress-bar" style="width: 72%;"></div>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-400">
+            <span>Next Rank: Level Up to unlock new Hunter Titles</span>
+            <span class="text-amber-400/90 font-mono">+Bonus Quest Multiplier active</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- System Quest Warning HUD Alert -->
+    <div class="system-alert p-3.5 mb-6 flex items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-3">
+        <div class="p-1.5 rounded bg-cyan-400/20 text-cyan-300">
+          <i data-lucide="bell" class="w-4 h-4 animate-bounce"></i>
+        </div>
+        <div>
+          <span class="font-bold text-cyan-300 tracking-wide font-orbitron">[SYSTEM NOTIFICATION]</span>
+          <span class="text-slate-300 ml-1">Daily Quest: "Preparation to Become Strong" is currently in progress. Complete all objectives to maintain your streak!</span>
+        </div>
+      </div>
+      <span class="hidden sm:inline-block hud-tag text-[10px]">TIME TO RESET: <span id="countdown-timer">MIDNIGHT</span></span>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex items-center gap-3 border-b border-slate-800 pb-3 mb-6">
+      <button id="tab-quests-btn" class="flex items-center gap-2 px-4 py-2 rounded-lg font-rajdhani font-bold text-sm tracking-wide bg-cyan-500/20 border border-cyan-400 text-cyan-300 transition">
+        <i data-lucide="check-square" class="w-4 h-4"></i>
+        <span>DAILY QUESTS</span>
+      </button>
+
+      <button id="tab-history-btn" class="flex items-center gap-2 px-4 py-2 rounded-lg font-rajdhani font-bold text-sm tracking-wide bg-slate-900/60 border border-slate-700 text-slate-400 hover:text-white transition">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span>QUEST LOG & HEATMAP</span>
+      </button>
+
+      <button id="tab-leaderboard-btn" class="flex items-center gap-2 px-4 py-2 rounded-lg font-rajdhani font-bold text-sm tracking-wide bg-slate-900/60 border border-slate-700 text-slate-400 hover:text-white transition">
+        <i data-lucide="trophy" class="w-4 h-4"></i>
+        <span>HUNTER LEADERBOARD</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: DAILY QUESTS VIEW -->
+    <main id="tab-quests-content" class="space-y-6">
+
+      <!-- Today's Quest Progress Card -->
+      <section class="anime-card p-5">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-lg font-bold font-orbitron text-white">TODAY'S OBJECTIVES</h3>
+              <span id="date-label" class="hud-tag font-mono">TODAY</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Conquer 10 daily trials to forge unyielding discipline.</p>
+          </div>
+
+          <!-- Date Navigation & Action Buttons -->
+          <div class="flex items-center gap-2">
+            <button id="btn-prev-day" class="p-2 rounded bg-slate-800/80 border border-slate-700 hover:border-cyan-400 text-slate-300" title="Previous Day">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <input type="date" id="quest-date-picker" class="bg-slate-900 text-xs px-2.5 py-1.5 rounded border border-slate-700 text-slate-200 focus:outline-none focus:border-cyan-400 font-mono">
+            <button id="btn-next-day" class="p-2 rounded bg-slate-800/80 border border-slate-700 hover:border-cyan-400 text-slate-300" title="Next Day">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+            <button id="btn-add-quest" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition shadow-[0_0_15px_rgba(56,189,248,0.4)]">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Add Quest</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Overall Progress Dial Bar -->
+        <div class="bg-slate-900/60 rounded-xl p-4 border border-slate-800/80 mb-4">
+          <div class="flex items-center justify-between text-xs font-semibold mb-2">
+            <span class="text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="target" class="w-4 h-4 text-cyan-400"></i>
+              <span>Trial Clearance Rate:</span>
+              <strong id="quest-completion-count" class="text-cyan-400 font-orbitron text-sm">7 / 10 Complete</strong>
+            </span>
+            <span id="quest-completion-percent" class="text-cyan-300 font-orbitron font-bold text-sm">70%</span>
+          </div>
+          <div class="progress-container h-4">
+            <div id="quest-progress-bar" class="progress-bar" style="width: 70%;"></div>
+          </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+          <span class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Filter:</span>
+          <button class="filter-pill active px-3 py-1 rounded-full border border-cyan-400 bg-cyan-500/20 text-cyan-300 font-semibold" data-cat="all">All Quests</button>
+          <button class="filter-pill px-3 py-1 rounded-full border border-slate-700 bg-slate-800/40 text-slate-400 hover:text-white" data-cat="Strength">⚔️ Strength</button>
+          <button class="filter-pill px-3 py-1 rounded-full border border-slate-700 bg-slate-800/40 text-slate-400 hover:text-white" data-cat="Agility">⚡ Agility</button>
+          <button class="filter-pill px-3 py-1 rounded-full border border-slate-700 bg-slate-800/40 text-slate-400 hover:text-white" data-cat="Intelligence">🧠 Intelligence</button>
+          <button class="filter-pill px-3 py-1 rounded-full border border-slate-700 bg-slate-800/40 text-slate-400 hover:text-white" data-cat="Vitality">🌿 Vitality</button>
+          <button class="filter-pill px-3 py-1 rounded-full border border-slate-700 bg-slate-800/40 text-slate-400 hover:text-white" data-cat="Discipline">🎯 Discipline</button>
+          <button class="filter-pill px-3 py-1 rounded-full border border-slate-700 bg-slate-800/40 text-slate-400 hover:text-white" data-cat="Spirit">✨ Spirit</button>
+        </div>
+      </section>
+
+      <!-- Quests Cards List -->
+      <section id="quest-list-container" class="space-y-3">
+        <!-- Injected dynamically via app.js -->
+      </section>
+
+      <!-- Quick Restore Template Footer -->
+      <div class="flex items-center justify-between text-xs text-slate-500 pt-2">
+        <span>Need fresh inspirations for your daily 10 goals?</span>
+        <button id="btn-restore-defaults" class="text-cyan-400 hover:underline flex items-center gap-1 font-semibold">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          <span>Summon 10 Classic Hunter Quests</span>
+        </button>
+      </div>
+
+    </main>
+
+    <!-- TAB 2: QUEST LOG & HEATMAP VIEW -->
+    <section id="tab-history-content" class="space-y-6 hidden">
+      <div class="anime-card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-bold font-orbitron text-white">HUNTER CHRONICLES</h3>
+            <p class="text-xs text-slate-400">Past 30-Day Activity & Consistency Heatmap</p>
+          </div>
+          <span class="hud-tag">30-DAY LOG</span>
+        </div>
+
+        <!-- 30-Day Grid Heatmap -->
+        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 mb-6">
+          <div class="flex items-center justify-between text-xs font-semibold mb-3">
+            <span class="text-slate-300">Daily Quest Clearance Heatmap</span>
+            <div class="flex items-center gap-2 text-[10px] text-slate-400">
+              <span>Less</span>
+              <div class="heat-cell heat-0"></div>
+              <div class="heat-cell heat-1"></div>
+              <div class="heat-cell heat-2"></div>
+              <div class="heat-cell heat-3"></div>
+              <div class="heat-cell heat-4"></div>
+              <span>More</span>
+            </div>
+          </div>
+
+          <div id="heatmap-grid" class="flex flex-wrap gap-2 items-center">
+            <!-- Heatmap cells injected dynamically -->
+          </div>
+          <p id="heatmap-tooltip" class="text-[11px] text-cyan-300 mt-3 font-mono">Hover over any day to inspect quest stats</p>
+        </div>
+
+        <!-- Summary Statistics Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+            <p class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Days Tracked</p>
+            <p id="stat-days-tracked" class="text-xl font-bold font-orbitron text-white mt-1">30</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+            <p class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Perfect Days (100%)</p>
+            <p id="stat-perfect-days" class="text-xl font-bold font-orbitron text-cyan-400 mt-1">18</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+            <p class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Quests Conquered</p>
+            <p id="stat-total-quests" class="text-xl font-bold font-orbitron text-amber-400 mt-1">245</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+            <p class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Best Streak</p>
+            <p id="stat-best-streak" class="text-xl font-bold font-orbitron text-rose-400 mt-1">🔥 15</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: HUNTER GUILD LEADERBOARD -->
+    <section id="tab-leaderboard-content" class="space-y-6 hidden">
+      <div class="anime-card p-5">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-bold font-orbitron text-white">HUNTER GUILD RANKINGS</h3>
+            <p class="text-xs text-slate-400">Global registered hunters ranked by discipline, XP, and streaks</p>
+          </div>
+          <span class="hud-tag">GUILD HALL</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 uppercase font-rajdhani tracking-wider">
+                <th class="py-2.5 px-3">Rank</th>
+                <th class="py-2.5 px-3">Hunter</th>
+                <th class="py-2.5 px-3">Rank & Title</th>
+                <th class="py-2.5 px-3">Level</th>
+                <th class="py-2.5 px-3">Active Streak</th>
+                <th class="py-2.5 px-3">Action</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-table-body" class="divide-y divide-slate-800/60">
+              <!-- Injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- MODAL: ADD / EDIT QUEST -->
+  <div id="modal-quest" class="modal-overlay hidden">
+    <div class="anime-card w-full max-w-md p-6 relative border border-cyan-400/60 shadow-[0_0_30px_rgba(56,189,248,0.3)]">
+      <div class="flex items-center justify-between mb-4">
+        <h3 id="modal-quest-title" class="text-lg font-bold font-orbitron text-white">FORGE DAILY QUEST</h3>
+        <button id="btn-close-quest-modal" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="form-quest" class="space-y-4 text-xs">
+        <input type="hidden" id="quest-id-input">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Quest Title *</label>
+          <input type="text" id="quest-title-input" required placeholder="e.g. 100 Push-ups / Read 30 mins" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Description / Lore</label>
+          <textarea id="quest-desc-input" rows="2" placeholder="Describe the discipline or requirement..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Category</label>
+            <select id="quest-cat-input" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+              <option value="Strength">⚔️ Strength</option>
+              <option value="Agility">⚡ Agility</option>
+              <option value="Intelligence">🧠 Intelligence</option>
+              <option value="Vitality">🌿 Vitality</option>
+              <option value="Discipline">🎯 Discipline</option>
+              <option value="Spirit">✨ Spirit</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">XP Reward</label>
+            <input type="number" id="quest-xp-input" value="50" min="10" max="250" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400 font-mono">
+          </div>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2.5">
+          <button type="button" id="btn-cancel-quest" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-semibold hover:bg-slate-700 transition">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition shadow-[0_0_15px_rgba(56,189,248,0.5)]">Save Quest</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: HUNTER REGISTRY / AUTH & SWITCH -->
+  <div id="modal-auth" class="modal-overlay hidden">
+    <div class="anime-card w-full max-w-md p-6 relative border border-cyan-400/60 shadow-[0_0_30px_rgba(56,189,248,0.3)]">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-lg font-bold font-orbitron text-white">HUNTER REGISTRY</h3>
+          <p class="text-xs text-slate-400">Switch Hunter, Login, or Register a New Profile</p>
+        </div>
+        <button id="btn-close-auth-modal" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Quick Switch Hunter List -->
+      <div class="mb-5 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Active Hunters (1-Click Switch):</p>
+        <div id="quick-hunters-list" class="space-y-2">
+          <!-- Dynamically populated hunters -->
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800 pt-4">
+        <!-- Auth tabs: Login vs Register -->
+        <div class="flex gap-2 mb-4">
+          <button id="auth-tab-login" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400">Sign In</button>
+          <button id="auth-tab-register" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 border border-slate-700">New Hunter</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="form-login" class="space-y-3 text-xs">
+          <div>
+            <label class="block text-slate-300 mb-1">Hunter Codename (Username)</label>
+            <input type="text" id="login-username" required placeholder="jinwoo or hunter" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1">Security Key (Password)</label>
+            <input type="password" id="login-password" required placeholder="hunter123" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition shadow-[0_0_15px_rgba(56,189,248,0.4)] mt-2">Enter Gate</button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="form-register" class="space-y-3 text-xs hidden">
+          <div>
+            <label class="block text-slate-300 mb-1">Codename (Username) *</label>
+            <input type="text" id="reg-username" required placeholder="e.g. shadow_lord" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1">Display Name</label>
+            <input type="text" id="reg-display" placeholder="e.g. Shadow Lord" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1">Security Key (Password) *</label>
+            <input type="password" id="reg-password" required placeholder="Choose a password" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1">Choose Hunter Avatar</label>
+            <div class="grid grid-cols-4 gap-2 pt-1" id="avatar-selector">
+              <label class="cursor-pointer border-2 border-cyan-400 rounded-lg p-1 text-center bg-slate-800">
+                <input type="radio" name="reg-avatar" value="jinwoo" checked class="hidden">
+                <span class="text-xs font-bold block text-cyan-300">⚔️ Jinwoo</span>
+              </label>
+              <label class="cursor-pointer border border-slate-700 rounded-lg p-1 text-center bg-slate-800">
+                <input type="radio" name="reg-avatar" value="cyberpunk" class="hidden">
+                <span class="text-xs font-bold block text-slate-300">⚡ Cyber</span>
+              </label>
+              <label class="cursor-pointer border border-slate-700 rounded-lg p-1 text-center bg-slate-800">
+                <input type="radio" name="reg-avatar" value="hashira" class="hidden">
+                <span class="text-xs font-bold block text-slate-300">🔥 Hashira</span>
+              </label>
+              <label class="cursor-pointer border border-slate-700 rounded-lg p-1 text-center bg-slate-800">
+                <input type="radio" name="reg-avatar" value="ghibli" class="hidden">
+                <span class="text-xs font-bold block text-slate-300">🍃 Ghibli</span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold transition shadow-[0_0_15px_rgba(52,211,153,0.4)] mt-2">Awaken as Hunter</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QUEST COMPLETE CELEBRATION -->
+  <div id="modal-celebrate" class="modal-overlay hidden">
+    <div class="anime-card w-full max-w-sm p-6 text-center border-2 border-amber-400 shadow-[0_0_40px_rgba(251,191,36,0.6)] animate-float">
+      <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-amber-400/20 border-2 border-amber-400 flex items-center justify-center text-3xl">
+        👑
+      </div>
+      <h3 class="text-xl font-bold font-orbitron text-amber-300 tracking-wider">DAILY QUEST CLEARED!</h3>
+      <p class="text-xs text-slate-300 mt-2 font-kanji">全てのデイリークエストを達成しました！</p>
+      <div class="my-4 py-3 bg-amber-400/10 rounded-xl border border-amber-400/30">
+        <p class="text-xs text-amber-200 font-semibold font-orbitron">+500 BONUS XP GRANTED</p>
+        <p class="text-xs text-cyan-300 font-semibold mt-1">🔥 Active Streak Multiplier Maintained</p>
+      </div>
+      <button id="btn-close-celebrate" class="w-full py-2.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold font-orbitron text-xs transition">Claim Glory & Continue</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
