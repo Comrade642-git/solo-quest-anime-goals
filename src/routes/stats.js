@@ -9,7 +9,7 @@ router.use(authMiddleware);
 router.get('/leaderboard', (req, res) => {
   const users = db.getAllUsers();
   
-  // Sort by XP descending, then current_streak descending
+  // Sort by Consistency Rank order descending (S > A > B > C > D > E), then streak, then XP
   const ranked = users.map(u => ({
     id: u.id,
     username: u.username,
@@ -21,10 +21,13 @@ router.get('/leaderboard', (req, res) => {
     best_streak: u.best_streak,
     isCurrent: u.id === req.user.id
   })).sort((a, b) => {
-    if (b.levelInfo.level !== a.levelInfo.level) {
-      return b.levelInfo.level - a.levelInfo.level;
+    if (b.levelInfo.order !== a.levelInfo.order) {
+      return (b.levelInfo.order || 0) - (a.levelInfo.order || 0);
     }
-    return (b.current_streak || 0) - (a.current_streak || 0);
+    if ((b.current_streak || 0) !== (a.current_streak || 0)) {
+      return (b.current_streak || 0) - (a.current_streak || 0);
+    }
+    return (b.levelInfo.level || 0) - (a.levelInfo.level || 0);
   });
 
   res.json({

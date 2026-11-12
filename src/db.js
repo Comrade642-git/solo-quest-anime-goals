@@ -51,7 +51,6 @@ class QuestDatabase {
       const tempFile = `${DB_FILE}.tmp.${Date.now()}`;
       fs.writeFileSync(tempFile, serialized, 'utf8');
       
-      // Keep backup of existing
       if (fs.existsSync(DB_FILE)) {
         fs.copyFileSync(DB_FILE, BACKUP_FILE);
       }
@@ -64,9 +63,94 @@ class QuestDatabase {
     }
   }
 
+  // --- Rank Calculations Strictly Based on Daily Consistency (Streaks) ---
+  // Ranks: E (Default) -> D -> C -> B -> A -> S (Highest)
+  calculateRank(streak = 0) {
+    const s = Math.max(0, streak || 0);
+
+    if (s >= 30) {
+      return {
+        rankBadge: 'S',
+        rank: 'S-Rank Supreme Hunter',
+        title: 'Supreme Monarch',
+        rankColor: '#c084fc',
+        minStreak: 30,
+        nextRank: 'MAX RANK (S-Rank)',
+        daysToNextRank: 0,
+        streakProgress: '100%',
+        order: 6
+      };
+    } else if (s >= 21) {
+      const needed = 30 - s;
+      return {
+        rankBadge: 'A',
+        rank: 'A-Rank Master',
+        title: 'Master Hunter',
+        rankColor: '#eab308',
+        minStreak: 21,
+        nextRank: 'S-Rank',
+        daysToNextRank: needed,
+        streakProgress: `${Math.round(((s - 21) / 9) * 100)}%`,
+        order: 5
+      };
+    } else if (s >= 14) {
+      const needed = 21 - s;
+      return {
+        rankBadge: 'B',
+        rank: 'B-Rank Elite',
+        title: 'Elite Hunter',
+        rankColor: '#06b6d4',
+        minStreak: 14,
+        nextRank: 'A-Rank',
+        daysToNextRank: needed,
+        streakProgress: `${Math.round(((s - 14) / 7) * 100)}%`,
+        order: 4
+      };
+    } else if (s >= 7) {
+      const needed = 14 - s;
+      return {
+        rankBadge: 'C',
+        rank: 'C-Rank Vanguard',
+        title: 'Vanguard Hunter',
+        rankColor: '#22c55e',
+        minStreak: 7,
+        nextRank: 'B-Rank',
+        daysToNextRank: needed,
+        streakProgress: `${Math.round(((s - 7) / 7) * 100)}%`,
+        order: 3
+      };
+    } else if (s >= 3) {
+      const needed = 7 - s;
+      return {
+        rankBadge: 'D',
+        rank: 'D-Rank Apprentice',
+        title: 'Apprentice Hunter',
+        rankColor: '#38bdf8',
+        minStreak: 3,
+        nextRank: 'C-Rank',
+        daysToNextRank: needed,
+        streakProgress: `${Math.round(((s - 3) / 4) * 100)}%`,
+        order: 2
+      };
+    } else {
+      // Default: E-Rank (0 to 2 days)
+      const needed = 3 - s;
+      return {
+        rankBadge: 'E',
+        rank: 'E-Rank Novice',
+        title: 'Awakened Novice',
+        rankColor: '#94a3b8',
+        minStreak: 0,
+        nextRank: 'D-Rank',
+        daysToNextRank: needed,
+        streakProgress: `${Math.round((s / 3) * 100)}%`,
+        order: 1
+      };
+    }
+  }
+
   // --- XP & Level Calculations ---
-  // Level curve: Level 1 = 0 XP, Level 2 = 200 XP, Level 3 = 500 XP, etc.
-  calculateLevel(xp) {
+  calculateLevel(xp = 0, streak = 0) {
     let level = 1;
     let threshold = 200;
     let accumulated = 0;
@@ -79,53 +163,15 @@ class QuestDatabase {
     const nextLevelXP = threshold;
     const progressPercent = Math.min(100, Math.round((currentLevelXP / nextLevelXP) * 100));
 
-    // Hunter Rank Calculation
-    let rank = 'E-Rank Novice';
-    let title = 'Awakened Hunter';
-    let rankBadge = 'E';
-    let rankColor = '#94a3b8';
-
-    if (level >= 30) {
-      rank = 'S-Rank Shadow Monarch';
-      title = 'Ruler of Shadows';
-      rankBadge = 'S+';
-      rankColor = '#a855f7';
-    } else if (level >= 20) {
-      rank = 'S-Rank National Hunter';
-      title = 'Supreme Vanguard';
-      rankBadge = 'S';
-      rankColor = '#ec4899';
-    } else if (level >= 15) {
-      rank = 'A-Rank Elite Hunter';
-      title = 'Dungeon Destroyer';
-      rankBadge = 'A';
-      rankColor = '#eab308';
-    } else if (level >= 10) {
-      rank = 'B-Rank Vanguard';
-      title = 'Raid Specialist';
-      rankBadge = 'B';
-      rankColor = '#06b6d4';
-    } else if (level >= 5) {
-      rank = 'C-Rank Adventurer';
-      title = 'Dungeon Explorer';
-      rankBadge = 'C';
-      rankColor = '#22c55e';
-    } else if (level >= 2) {
-      rank = 'D-Rank Scout';
-      title = 'Rising Contender';
-      rankBadge = 'D';
-      rankColor = '#3b82f6';
-    }
+    // Consistency Rank (S, A, B, C, D, E)
+    const rankInfo = this.calculateRank(streak);
 
     return {
       level,
       currentLevelXP,
       nextLevelXP,
       progressPercent,
-      rank,
-      title,
-      rankBadge,
-      rankColor
+      ...rankInfo
     };
   }
 
@@ -154,7 +200,7 @@ class QuestDatabase {
       display_name: u.display_name,
       avatar: u.avatar,
       theme: u.theme || 'monarch',
-      levelInfo: this.calculateLevel(u.xp || 0),
+      levelInfo: this.calculateLevel(u.xp || 0, u.current_streak || 0),
       current_streak: u.current_streak || 0,
       best_streak: u.best_streak || 0,
       created_at: u.created_at
@@ -163,6 +209,7 @@ class QuestDatabase {
 
   createUser({ username, password_hash, salt, display_name, avatar, theme }) {
     const id = crypto.randomUUID();
+    // Every new account starts strictly at E-Rank (0 streak, 0 XP)
     const newUser = {
       id,
       username: username.trim(),
@@ -171,10 +218,10 @@ class QuestDatabase {
       display_name: display_name ? display_name.trim() : username.trim(),
       avatar: avatar || 'jinwoo',
       theme: theme || 'monarch',
-      xp: 150,
-      current_streak: 1,
-      best_streak: 1,
-      last_active_date: this.getTodayString(),
+      xp: 0,
+      current_streak: 0,
+      best_streak: 0,
+      last_active_date: null,
       created_at: new Date().toISOString()
     };
 
@@ -383,7 +430,7 @@ class QuestDatabase {
       date: targetDate,
       completed: wasCompleted,
       xpChanged: wasCompleted ? goal.xp_reward : -goal.xp_reward,
-      userLevel: this.calculateLevel(user.xp),
+      userLevel: this.calculateLevel(user.xp, user.current_streak),
       currentStreak: user.current_streak
     };
   }
@@ -393,7 +440,6 @@ class QuestDatabase {
     const user = this.findUserById(userId);
     if (!user) return;
 
-    // Get all dates where user completed at least 50% or 1+ goals
     const userLogs = this.data.daily_logs.filter(l => l.user_id === userId && l.completed);
     const dateCounts = {};
     userLogs.forEach(l => {
@@ -406,14 +452,9 @@ class QuestDatabase {
       return;
     }
 
-    const today = this.getTodayString();
-    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-
-    // Check if user has activity today or yesterday
     let streak = 0;
     let checkDate = new Date();
     
-    // If no activity today, start checking from yesterday
     const todayStr = checkDate.toISOString().split('T')[0];
     if (!dateCounts[todayStr]) {
       checkDate.setDate(checkDate.getDate() - 1);
@@ -471,10 +512,10 @@ class QuestDatabase {
     if (this.data.users.length === 0) {
       console.log('Seeding initial anime hunter users...');
       
-      // Hash helper for seeding: 'hunter123'
       const salt = crypto.randomBytes(16).toString('hex');
       const hash = crypto.pbkdf2Sync('hunter123', salt, 1000, 64, 'sha512').toString('hex');
 
+      // Sung Jin-Woo (14-day streak = B-Rank Elite)
       const jinwooId = crypto.randomUUID();
       const jinwoo = {
         id: jinwooId,
@@ -484,16 +525,16 @@ class QuestDatabase {
         display_name: 'Sung Jin-Woo',
         avatar: 'jinwoo',
         theme: 'monarch',
-        xp: 3420,
-        current_streak: 12,
-        best_streak: 15,
+        xp: 2200,
+        current_streak: 14,
+        best_streak: 14,
         last_active_date: this.getTodayString(),
         created_at: new Date(Date.now() - 14 * 86400000).toISOString()
       };
       this.data.users.push(jinwoo);
       this.seedDefaultGoalsForUser(jinwooId);
 
-      // Seed past history for Jinwoo to give an awesome heatmap right away
+      // Seed past history for Jinwoo
       const jinwooGoals = this.getUserGoals(jinwooId);
       for (let dayOffset = 13; dayOffset >= 0; dayOffset--) {
         const d = new Date(Date.now() - dayOffset * 86400000).toISOString().split('T')[0];
@@ -510,7 +551,7 @@ class QuestDatabase {
         }
       }
 
-      // Guest / Demo Hunter
+      // Novice Hunter (0-day streak = E-Rank Default)
       const guestSalt = crypto.randomBytes(16).toString('hex');
       const guestHash = crypto.pbkdf2Sync('hunter123', guestSalt, 1000, 64, 'sha512').toString('hex');
       const guestId = crypto.randomUUID();
@@ -520,13 +561,13 @@ class QuestDatabase {
         password_hash: guestHash,
         salt: guestSalt,
         display_name: 'Novice Hunter',
-        avatar: 'cyberpunk',
-        theme: 'cyberpunk',
-        xp: 450,
-        current_streak: 3,
-        best_streak: 5,
-        last_active_date: this.getTodayString(),
-        created_at: new Date(Date.now() - 4 * 86400000).toISOString()
+        avatar: 'flame',
+        theme: 'flame',
+        xp: 0,
+        current_streak: 0,
+        best_streak: 0,
+        last_active_date: null,
+        created_at: new Date().toISOString()
       };
       this.data.users.push(guest);
       this.seedDefaultGoalsForUser(guestId);

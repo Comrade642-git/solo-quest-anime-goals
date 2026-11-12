@@ -7,7 +7,7 @@
       "salt": "d6af6514b33656c373ce851428be8eea",
       "display_name": "Sung Jin-Woo",
       "avatar": "jinwoo",
-      "theme": "monarch",
+      "theme": "ghibli",
       "xp": 3470,
       "current_streak": 14,
       "best_streak": 15,
@@ -27,6 +27,20 @@
       "best_streak": 5,
       "last_active_date": "2026-11-13",
       "created_at": "2026-11-08T19:17:48.509Z"
+    },
+    {
+      "id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "username": "test_hunter_1794512529565",
+      "password_hash": "dummy",
+      "salt": "dummy",
+      "display_name": "Test Hunter",
+      "avatar": "flame",
+      "theme": "flame",
+      "xp": 0,
+      "current_streak": 0,
+      "best_streak": 0,
+      "last_active_date": null,
+      "created_at": "2026-11-12T19:42:09.565Z"
     }
   ],
   "goals": [
@@ -269,6 +283,126 @@
       "order_index": 9,
       "is_active": true,
       "created_at": "2026-11-12T19:17:48.509Z"
+    },
+    {
+      "id": "8e8bc7df-3e8e-41fa-a46d-c426ea952d72",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Morning Physical Training (100 Push-ups / 100 Sit-ups)",
+      "description": "Sharpen your hunter physique with core endurance.",
+      "category": "Strength",
+      "xp_reward": 50,
+      "icon": "dumbbell",
+      "order_index": 0,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "dcd5454c-16e9-4b78-99de-7360caf5ea42",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Endurance Run or 10,000 Steps",
+      "description": "Build agility and speed for dungeon runs.",
+      "category": "Agility",
+      "xp_reward": 50,
+      "icon": "flame",
+      "order_index": 1,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "39260929-baaa-4287-9ae6-63b8c6195d41",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Deep Work / Skill Mastery (2 Hours)",
+      "description": "Conquer the intellectual dungeon with zero distraction.",
+      "category": "Intelligence",
+      "xp_reward": 60,
+      "icon": "brain",
+      "order_index": 2,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "9fadce5a-dd40-4b3f-a6ea-b9007aea3447",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Drink 2.5 Liters of Pure Water",
+      "description": "Hydrate mana reserves for cellular restoration.",
+      "category": "Vitality",
+      "xp_reward": 30,
+      "icon": "droplet",
+      "order_index": 3,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "39c2216e-48f7-442b-b46c-9a863e4b16b2",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Read 20 Pages of Knowledge / Wisdom",
+      "description": "Absorb ancient grimoires or modern tactical knowledge.",
+      "category": "Intelligence",
+      "xp_reward": 40,
+      "icon": "book-open",
+      "order_index": 4,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "870de0a4-0c54-4b80-b2fa-9848d1eb81a3",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Clean & Nutritious Hunter Fuel (No Junk)",
+      "description": "Fuel the vessel with high-tier nutrient rations.",
+      "category": "Vitality",
+      "xp_reward": 40,
+      "icon": "apple",
+      "order_index": 5,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "8125520e-161c-4d95-8305-7b9ccffd922e",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "15 Minutes Meditation & Breathwork",
+      "description": "Calm the spiritual aura and focus mental mana.",
+      "category": "Spirit",
+      "xp_reward": 35,
+      "icon": "wind",
+      "order_index": 6,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "2a9e2133-964c-4488-9c8d-fb7d7eec15ef",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Code or Build a Creative Project Task",
+      "description": "Forge modern tech weapons and forge your digital empire.",
+      "category": "Intelligence",
+      "xp_reward": 50,
+      "icon": "code",
+      "order_index": 7,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "0a605675-e53c-4252-b9f6-14e4ebb2d88a",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "Sanctuary Organization & Room Cleansing",
+      "description": "Maintain an orderly base camp for supreme efficiency.",
+      "category": "Discipline",
+      "xp_reward": 30,
+      "icon": "sparkles",
+      "order_index": 8,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
+    },
+    {
+      "id": "88e274e3-fa28-4a59-822e-83879ba19d6d",
+      "user_id": "4d550809-35ba-4238-83c5-e594eeb4364c",
+      "title": "8 Hours Mana Regeneration Sleep",
+      "description": "Rest fully before the next dungeon gate opens at dawn.",
+      "category": "Vitality",
+      "xp_reward": 50,
+      "icon": "moon",
+      "order_index": 9,
+      "is_active": true,
+      "created_at": "2026-11-12T19:42:09.567Z"
     }
   ],
   "daily_logs": [

@@ -41,14 +41,14 @@
         </div>
         <p class="text-xs text-cyan-300/80 font-kanji font-bold">デイリークエスト • 覚醒システム</p>
         <p class="text-xs text-slate-300 mt-2 max-w-md mx-auto">
-          Conquer 10 daily goals, level up your hunter rank, and forge unshakeable discipline.
+          Conquer 10 daily goals, build unbroken consistency, and rise through the ranks: <strong>E ➔ D ➔ C ➔ B ➔ A ➔ S (Highest)</strong>.
         </p>
 
         <!-- Audio unlock / test button -->
         <div class="mt-3 flex items-center justify-center gap-2">
           <button id="gate-sound-test" class="px-3 py-1 rounded-full bg-slate-900 border border-cyan-400/50 hover:border-cyan-300 text-[11px] font-bold text-cyan-300 flex items-center gap-1.5 transition">
             <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
-            <span>🔊 Click to Test Anime Sound</span>
+            <span>🔊 Click to Test Theme Sound</span>
           </button>
         </div>
       </div>
@@ -59,7 +59,7 @@
           ⚔️ SIGN IN (EXISTING HUNTER)
         </button>
         <button id="gate-tab-register" class="flex-1 py-2.5 rounded-lg text-xs font-bold font-rajdhani tracking-wider transition text-slate-400 hover:text-white border border-transparent">
-          ✨ AWAKEN (CREATE HUNTER)
+          ✨ AWAKEN (CREATE ACCOUNT)
         </button>
       </div>
 
@@ -90,7 +90,7 @@
         </button>
       </form>
 
-      <!-- FORM: CREATE / REGISTER -->
+      <!-- FORM: CREATE / REGISTER (THEMES & WORLDS, NO ARBITRARY RANK) -->
       <form id="gate-form-register" class="space-y-4 text-xs hidden">
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Choose Hunter Codename (Username) *</label>
@@ -107,29 +107,86 @@
           <input type="password" id="gate-reg-password" required placeholder="Choose a password (min 4 characters)" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
         </div>
 
+        <!-- THEME SELECTION: SUNG JIN-WOO, FLAME HASHIRA, ETC. -->
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Select Hunter Avatar & Class</label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1" id="gate-avatar-selector">
-            <label class="cursor-pointer border-2 border-cyan-400 rounded-lg p-2 text-center bg-slate-800/80">
-              <input type="radio" name="gate-avatar" value="jinwoo" checked class="hidden">
-              <div class="text-xl mb-0.5">⚔️</div>
-              <span class="text-[11px] font-bold block text-cyan-300">Jin-Woo</span>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-slate-300 font-semibold">Select Anime Theme & Realm (Click to Preview Sound):</label>
+            <span class="text-[10px] text-cyan-300 font-mono">🔊 Specific Sound per Theme</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="gate-theme-selector">
+            
+            <!-- 1. Sung Jin-Woo / Shadow Monarch -->
+            <label class="theme-card-option cursor-pointer border-2 border-cyan-400 rounded-xl p-2.5 bg-slate-900/80 hover:bg-slate-800 transition" data-theme="monarch">
+              <input type="radio" name="gate-theme" value="monarch" checked class="hidden">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-lg flex-shrink-0">⚔️</div>
+                <div class="min-w-0">
+                  <p class="font-bold text-white text-xs leading-snug">Sung Jin-Woo</p>
+                  <p class="text-[10px] text-cyan-300">Shadow Realm • Solo Leveling</p>
+                </div>
+              </div>
             </label>
-            <label class="cursor-pointer border border-slate-700 rounded-lg p-2 text-center bg-slate-800/80">
-              <input type="radio" name="gate-avatar" value="cyberpunk" class="hidden">
-              <div class="text-xl mb-0.5">⚡</div>
-              <span class="text-[11px] font-bold block text-slate-300">Cyber Ninja</span>
+
+            <!-- 2. Flame Hashira / Kyojuro Rengoku -->
+            <label class="theme-card-option cursor-pointer border border-slate-700 rounded-xl p-2.5 bg-slate-900/80 hover:bg-slate-800 transition" data-theme="flame">
+              <input type="radio" name="gate-theme" value="flame" class="hidden">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-orange-500/20 flex items-center justify-center text-lg flex-shrink-0">🔥</div>
+                <div class="min-w-0">
+                  <p class="font-bold text-white text-xs leading-snug">Flame Hashira</p>
+                  <p class="text-[10px] text-orange-300">Flame Estate • Demon Slayer</p>
+                </div>
+              </div>
             </label>
-            <label class="cursor-pointer border border-slate-700 rounded-lg p-2 text-center bg-slate-800/80">
-              <input type="radio" name="gate-avatar" value="hashira" class="hidden">
-              <div class="text-xl mb-0.5">🔥</div>
-              <span class="text-[11px] font-bold block text-slate-300">Hashira</span>
+
+            <!-- 3. Cyber Ninja / Neo-Tokyo -->
+            <label class="theme-card-option cursor-pointer border border-slate-700 rounded-xl p-2.5 bg-slate-900/80 hover:bg-slate-800 transition" data-theme="cyberpunk">
+              <input type="radio" name="gate-theme" value="cyberpunk" class="hidden">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center text-lg flex-shrink-0">⚡</div>
+                <div class="min-w-0">
+                  <p class="font-bold text-white text-xs leading-snug">Cyber Ninja</p>
+                  <p class="text-[10px] text-pink-300">Night City • Neo-Tokyo Grid</p>
+                </div>
+              </div>
             </label>
-            <label class="cursor-pointer border border-slate-700 rounded-lg p-2 text-center bg-slate-800/80">
-              <input type="radio" name="gate-avatar" value="ghibli" class="hidden">
-              <div class="text-xl mb-0.5">🍃</div>
-              <span class="text-[11px] font-bold block text-slate-300">Wanderer</span>
+
+            <!-- 4. Valley Wanderer / Ghibli -->
+            <label class="theme-card-option cursor-pointer border border-slate-700 rounded-xl p-2.5 bg-slate-900/80 hover:bg-slate-800 transition" data-theme="ghibli">
+              <input type="radio" name="gate-theme" value="ghibli" class="hidden">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-lg flex-shrink-0">🍃</div>
+                <div class="min-w-0">
+                  <p class="font-bold text-white text-xs leading-snug">Valley Wanderer</p>
+                  <p class="text-[10px] text-emerald-300">Spirit Forest • Studio Ghibli</p>
+                </div>
+              </div>
             </label>
+
+            <!-- 5. Sakura Sorcerer -->
+            <label class="theme-card-option cursor-pointer border border-slate-700 rounded-xl p-2.5 bg-slate-900/80 hover:bg-slate-800 transition sm:col-span-2" data-theme="sakura">
+              <input type="radio" name="gate-theme" value="sakura" class="hidden">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-lg flex-shrink-0">🌸</div>
+                <div class="min-w-0">
+                  <p class="font-bold text-white text-xs leading-snug">Sakura Sorcerer</p>
+                  <p class="text-[10px] text-purple-300">Cherry Blossom Shrine • Twilight</p>
+                </div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- Starting Rank Notice: Always starts at E-Rank based on consistency -->
+        <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full border border-slate-600 bg-slate-800 flex items-center justify-center font-orbitron font-bold text-xs text-slate-300">
+            E
+          </div>
+          <div>
+            <p class="text-[11px] font-bold text-slate-200">Default Starting Rank: <span class="text-slate-400">E-Rank Novice</span></p>
+            <p class="text-[10px] text-slate-400">All hunters begin at E-Rank. Maintain consecutive daily streaks to ascend to S-Rank!</p>
           </div>
         </div>
 
@@ -144,11 +201,11 @@
         <div class="grid grid-cols-2 gap-2">
           <button id="gate-btn-demo-jinwoo" class="py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
             <span>⚔️</span>
-            <span>Sung Jin-Woo (Lv 7)</span>
+            <span>Sung Jin-Woo (B-Rank)</span>
           </button>
           <button id="gate-btn-demo-hunter" class="py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
-            <span>⚡</span>
-            <span>Novice Hunter (Lv 2)</span>
+            <span>🔥</span>
+            <span>Novice Hunter (E-Rank)</span>
           </button>
         </div>
       </div>
@@ -237,14 +294,14 @@
 
       <!-- Controls: Theme, Sound, Logout / Switch Hunter -->
       <div class="flex items-center flex-wrap gap-2.5">
-        <!-- Theme Selector -->
+        <!-- Theme Selector (With anime theme names) -->
         <div class="relative inline-block text-left">
           <select id="theme-select" class="bg-slate-900/80 text-xs font-semibold px-3 py-2 rounded-lg border border-slate-700 hover:border-cyan-400 focus:outline-none cursor-pointer text-slate-200">
-            <option value="monarch">⚔️ Shadow Monarch (Solo Leveling)</option>
-            <option value="cyberpunk">⚡ Neo-Tokyo (Cyberpunk)</option>
-            <option value="sakura">🌸 Sakura Shrine (Twilight)</option>
-            <option value="flame">🔥 Flame Hashira (Demon Slayer)</option>
-            <option value="ghibli">🍃 Ghibli Meadow (Serene)</option>
+            <option value="monarch">⚔️ Sung Jin-Woo (Shadow Realm)</option>
+            <option value="flame">🔥 Flame Hashira (Flame Estate)</option>
+            <option value="cyberpunk">⚡ Cyber Ninja (Night City)</option>
+            <option value="ghibli">🍃 Valley Wanderer (Spirit Forest)</option>
+            <option value="sakura">🌸 Sakura Sorcerer (Cherry Shrine)</option>
           </select>
         </div>
 
@@ -254,7 +311,7 @@
         </button>
 
         <!-- Test Audio Direct Button -->
-        <button id="btn-sound-test-hud" class="px-2.5 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-[11px] font-bold text-cyan-300 transition" title="Test audio chimes">
+        <button id="btn-sound-test-hud" class="px-2.5 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-[11px] font-bold text-cyan-300 transition" title="Test anime theme sound">
           <span>🔊 Sound Check</span>
         </button>
 
@@ -266,32 +323,34 @@
       </div>
     </header>
 
-    <!-- Hunter Profile & Stats Card -->
+    <!-- Hunter Profile & Consistency Rank Card -->
     <section id="hunter-card" class="anime-card p-5 mb-6">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
         
-        <!-- Hunter Avatar & Rank Badge -->
+        <!-- Hunter Avatar & Consistency Rank Badge (E -> D -> C -> B -> A -> S) -->
         <div class="md:col-span-5 flex items-center gap-4">
           <div class="relative">
             <div id="hunter-avatar-img" class="w-16 h-16 rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.5)] flex items-center justify-center bg-slate-800 text-2xl font-bold font-orbitron text-cyan-300">
               ⚔️
             </div>
+            <!-- Dynamic Consistency Rank Medallion -->
             <div id="rank-badge" class="absolute -bottom-1 -right-1 rank-badge text-xs" style="width: 28px; height: 28px; font-size: 0.75rem;">
-              S
+              E
             </div>
           </div>
           <div>
             <div class="flex items-center gap-2">
               <h2 id="hunter-name" class="text-lg font-bold font-rajdhani tracking-wide text-white">Sung Jin-Woo</h2>
-              <span id="rank-title" class="hud-tag">Shadow Monarch</span>
+              <span id="rank-badge-pill" class="hud-tag">E-Rank</span>
             </div>
-            <p id="hunter-sub" class="text-xs text-slate-400 mt-0.5">Rank: <span id="rank-name" class="text-cyan-400 font-semibold">S-Rank Hunter</span></p>
+            <p id="hunter-sub" class="text-xs text-slate-300 mt-0.5">Rank: <span id="rank-name" class="text-cyan-400 font-semibold">E-Rank Novice</span></p>
             
-            <!-- Streak Flame -->
-            <div class="flex items-center gap-1.5 mt-1.5 text-xs font-semibold text-amber-400">
+            <!-- Streak Flame & Next Rank Progression -->
+            <div class="flex items-center gap-2 mt-1.5 text-xs font-semibold text-amber-400">
               <span class="text-base animate-pulse">🔥</span>
-              <span id="streak-count">12 Days Active Streak</span>
+              <span id="streak-count">0 Days Active Streak</span>
             </div>
+            <p id="next-rank-info" class="text-[11px] text-slate-400 mt-0.5">Next: 3 consecutive days for D-Rank</p>
           </div>
         </div>
 
@@ -299,20 +358,21 @@
         <div class="md:col-span-7">
           <div class="flex items-center justify-between text-xs font-rajdhani font-semibold mb-1.5">
             <div class="flex items-center gap-2">
-              <span class="text-cyan-400 font-orbitron font-bold">LEVEL <span id="hunter-level">14</span></span>
+              <span class="text-cyan-400 font-orbitron font-bold">LEVEL <span id="hunter-level">1</span></span>
               <span class="text-slate-500">|</span>
-              <span id="hunter-xp-label" class="text-slate-300">1,450 / 2,000 XP</span>
+              <span id="hunter-xp-label" class="text-slate-300">0 / 200 XP</span>
             </div>
-            <span id="hunter-xp-percent" class="text-cyan-300 font-bold">72%</span>
+            <span id="hunter-xp-percent" class="text-cyan-300 font-bold">0%</span>
           </div>
 
           <div class="progress-container h-3.5 mb-2">
-            <div id="hunter-xp-bar" class="progress-bar" style="width: 72%;"></div>
+            <div id="hunter-xp-bar" class="progress-bar" style="width: 0%;"></div>
           </div>
 
+          <!-- Rank Ladder Explainer -->
           <div class="flex items-center justify-between text-[11px] text-slate-400">
-            <span>Next Rank: Level Up to unlock new Hunter Titles</span>
-            <span class="text-amber-400/90 font-mono">+Bonus Quest Multiplier active</span>
+            <span>Consistency Ladder: <strong>E ➔ D ➔ C ➔ B ➔ A ➔ S (Highest)</strong></span>
+            <span class="text-cyan-400 font-mono" id="rank-streak-req">Streak-based ascension</span>
           </div>
         </div>
 
@@ -327,10 +387,10 @@
         </div>
         <div>
           <span class="font-bold text-cyan-300 tracking-wide font-orbitron">[SYSTEM NOTIFICATION]</span>
-          <span class="text-slate-300 ml-1">Daily Quest: "Preparation to Become Strong" is currently in progress. Complete all objectives to maintain your streak!</span>
+          <span class="text-slate-300 ml-1">Daily Quest: "Preparation to Become Strong" is active. Complete today's objectives to build your streak!</span>
         </div>
       </div>
-      <span class="hidden sm:inline-block hud-tag text-[10px]">TIME TO RESET: <span id="countdown-timer">MIDNIGHT</span></span>
+      <span class="hidden sm:inline-block hud-tag text-[10px]">RESET IN: <span id="countdown-timer">MIDNIGHT</span></span>
     </div>
 
     <!-- Navigation Tabs -->
@@ -387,12 +447,12 @@
             <span class="text-slate-300 flex items-center gap-1.5">
               <i data-lucide="target" class="w-4 h-4 text-cyan-400"></i>
               <span>Trial Clearance Rate:</span>
-              <strong id="quest-completion-count" class="text-cyan-400 font-orbitron text-sm">7 / 10 Complete</strong>
+              <strong id="quest-completion-count" class="text-cyan-400 font-orbitron text-sm">0 / 10 Complete</strong>
             </span>
-            <span id="quest-completion-percent" class="text-cyan-300 font-orbitron font-bold text-sm">70%</span>
+            <span id="quest-completion-percent" class="text-cyan-300 font-orbitron font-bold text-sm">0%</span>
           </div>
           <div class="progress-container h-4">
-            <div id="quest-progress-bar" class="progress-bar" style="width: 70%;"></div>
+            <div id="quest-progress-bar" class="progress-bar" style="width: 0%;"></div>
           </div>
         </div>
 
@@ -479,26 +539,26 @@
       </div>
     </section>
 
-    <!-- TAB 3: HUNTER GUILD LEADERBOARD -->
+    <!-- TAB 3: HUNTER GUILD LEADERBOARD (RANKED BY S -> A -> B -> C -> D -> E) -->
     <section id="tab-leaderboard-content" class="space-y-6 hidden">
       <div class="anime-card p-5">
         <div class="flex items-center justify-between mb-4">
           <div>
             <h3 class="text-lg font-bold font-orbitron text-white">HUNTER GUILD RANKINGS</h3>
-            <p class="text-xs text-slate-400">Global registered hunters ranked by discipline, XP, and streaks</p>
+            <p class="text-xs text-slate-400">Hunters ranked by daily consistency: S (Highest) ➔ A ➔ B ➔ C ➔ D ➔ E (Starting)</p>
           </div>
-          <span class="hud-tag">GUILD HALL</span>
+          <span class="hud-tag">CONSISTENCY LADDER</span>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
             <thead>
               <tr class="border-b border-slate-800 text-slate-400 uppercase font-rajdhani tracking-wider">
-                <th class="py-2.5 px-3">Rank</th>
+                <th class="py-2.5 px-3">Position</th>
                 <th class="py-2.5 px-3">Hunter</th>
-                <th class="py-2.5 px-3">Rank & Title</th>
-                <th class="py-2.5 px-3">Level</th>
-                <th class="py-2.5 px-3">Active Streak</th>
+                <th class="py-2.5 px-3">Consistency Rank</th>
+                <th class="py-2.5 px-3">Streak Days</th>
+                <th class="py-2.5 px-3">Level / XP</th>
                 <th class="py-2.5 px-3">Action</th>
               </tr>
             </thead>

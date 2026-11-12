@@ -44,7 +44,7 @@ router.post('/register', (req, res) => {
       display_name: newUser.display_name,
       avatar: newUser.avatar,
       theme: newUser.theme,
-      levelInfo: db.calculateLevel(newUser.xp),
+      levelInfo: db.calculateLevel(newUser.xp, newUser.current_streak),
       current_streak: newUser.current_streak,
       best_streak: newUser.best_streak
     }
@@ -79,7 +79,7 @@ router.post('/login', (req, res) => {
       display_name: user.display_name,
       avatar: user.avatar,
       theme: user.theme,
-      levelInfo: db.calculateLevel(user.xp),
+      levelInfo: db.calculateLevel(user.xp, user.current_streak),
       current_streak: user.current_streak,
       best_streak: user.best_streak
     }
@@ -95,7 +95,7 @@ router.get('/me', authMiddleware, (req, res) => {
     display_name: user.display_name,
     avatar: user.avatar,
     theme: user.theme,
-    levelInfo: db.calculateLevel(user.xp),
+    levelInfo: db.calculateLevel(user.xp, user.current_streak),
     current_streak: user.current_streak,
     best_streak: user.best_streak,
     last_active_date: user.last_active_date
@@ -114,7 +114,7 @@ router.patch('/profile', authMiddleware, (req, res) => {
       display_name: updated.display_name,
       avatar: updated.avatar,
       theme: updated.theme,
-      levelInfo: db.calculateLevel(updated.xp),
+      levelInfo: db.calculateLevel(updated.xp, updated.current_streak),
       current_streak: updated.current_streak,
       best_streak: updated.best_streak
     }
@@ -127,7 +127,7 @@ router.get('/hunters', (req, res) => {
   res.json(all);
 });
 
-// Quick Switch Demo Login (allows clicking any hunter profile in UI without retyping password)
+// Quick Switch Demo Login
 router.post('/switch-hunter', (req, res) => {
   const { userId } = req.body;
   const user = db.findUserById(userId);
@@ -144,7 +144,7 @@ router.post('/switch-hunter', (req, res) => {
       display_name: user.display_name,
       avatar: user.avatar,
       theme: user.theme,
-      levelInfo: db.calculateLevel(user.xp),
+      levelInfo: db.calculateLevel(user.xp, user.current_streak),
       current_streak: user.current_streak,
       best_streak: user.best_streak
     }

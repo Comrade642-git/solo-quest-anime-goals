@@ -14,7 +14,7 @@ router.get('/today', (req, res) => {
   
   res.json({
     ...status,
-    userLevel: db.calculateLevel(user.xp),
+    userLevel: db.calculateLevel(user.xp, user.current_streak),
     currentStreak: user.current_streak,
     bestStreak: user.best_streak
   });

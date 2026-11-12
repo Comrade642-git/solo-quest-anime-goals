@@ -1,4 +1,4 @@
-// Solo Quest - Application Controller & State Management v2.5
+// Solo Quest - Application Controller & State Management v2.6
 document.addEventListener('DOMContentLoaded', () => {
   // Application State
   const state = {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // DOM Elements
   const el = {
-    // Top Views
+    // Views
     viewAuthGate: document.getElementById('view-auth-gate'),
     viewDashboard: document.getElementById('view-dashboard'),
 
@@ -87,17 +87,19 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSoundTestHud: document.getElementById('btn-sound-test-hud'),
     btnHunterProfile: document.getElementById('btn-hunter-profile'),
 
-    // Hunter profile
+    // Hunter profile & Consistency Rank
     hunterAvatar: document.getElementById('hunter-avatar-img'),
     rankBadge: document.getElementById('rank-badge'),
+    rankBadgePill: document.getElementById('rank-badge-pill'),
     hunterName: document.getElementById('hunter-name'),
-    rankTitle: document.getElementById('rank-title'),
     rankName: document.getElementById('rank-name'),
     streakCount: document.getElementById('streak-count'),
+    nextRankInfo: document.getElementById('next-rank-info'),
     hunterLevel: document.getElementById('hunter-level'),
     hunterXpLabel: document.getElementById('hunter-xp-label'),
     hunterXpPercent: document.getElementById('hunter-xp-percent'),
     hunterXpBar: document.getElementById('hunter-xp-bar'),
+    rankStreakReq: document.getElementById('rank-streak-req'),
 
     // Tabs
     tabQuestsBtn: document.getElementById('tab-quests-btn'),
@@ -154,11 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
     Spirit: { color: 'text-purple-400 bg-purple-400/10 border-purple-400/30', icon: '✨' }
   };
 
-  const avatarMeta = {
-    jinwoo: { label: 'Sung Jin-Woo', emoji: '⚔️', bg: 'bg-indigo-900 text-cyan-300' },
-    cyberpunk: { label: 'Cyber Ninja', emoji: '⚡', bg: 'bg-pink-900 text-rose-300' },
-    hashira: { label: 'Flame Hashira', emoji: '🔥', bg: 'bg-amber-900 text-orange-300' },
-    ghibli: { label: 'Valley Wanderer', emoji: '🍃', bg: 'bg-emerald-900 text-emerald-300' }
+  const themeMeta = {
+    monarch: { name: 'Sung Jin-Woo', realm: 'Shadow Realm', emoji: '⚔️', soundNote: 'Shadow System Pulse' },
+    flame: { name: 'Flame Hashira', realm: 'Flame Estate', emoji: '🔥', soundNote: 'Nichirin Strike' },
+    cyberpunk: { name: 'Cyber Ninja', realm: 'Night City', emoji: '⚡', soundNote: 'FM Laser Pulse' },
+    ghibli: { name: 'Valley Wanderer', realm: 'Spirit Forest', emoji: '🍃', soundNote: 'Celestial Wind Harp' },
+    sakura: { name: 'Sakura Sorcerer', realm: 'Cherry Shrine', emoji: '🌸', soundNote: 'Shrine Temple Bell' }
   };
 
   // --- INITIALIZATION ---
@@ -166,18 +169,14 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCountdown();
     setInterval(updateCountdown, 60000);
 
-    // Initialize Date picker with today
     el.questDatePicker.value = state.date;
 
-    // Check saved theme
     const savedTheme = localStorage.getItem('quest_theme') || 'monarch';
     setTheme(savedTheme);
     el.themeSelect.value = savedTheme;
 
-    // Check sound state
     updateSoundIcon();
 
-    // Check if user has active session
     const token = API.getToken();
     if (token) {
       try {
@@ -185,12 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
         state.user = me;
         showDashboard();
       } catch (err) {
-        console.warn('Session expired or invalid, showing starting gate:', err);
+        console.warn('Session expired, showing starting entrance gate:', err);
         API.setToken(null);
         showAuthGate();
       }
     } else {
-      // Show Starting Page by default
       showAuthGate();
     }
 
@@ -315,27 +313,49 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshIcons();
   }
 
-  // --- REFRESH HUNTER PROFILE HUD ---
+  // --- REFRESH HUNTER PROFILE & CONSISTENCY RANK HUD ---
   function updateHunterHUD(user) {
     if (!user) return;
     el.hunterName.textContent = user.display_name || user.username;
     
-    const info = user.levelInfo || { level: 1, currentLevelXP: 0, nextLevelXP: 200, progressPercent: 0, rank: 'E-Rank Novice', title: 'Awakened Hunter', rankBadge: 'E', rankColor: '#94a3b8' };
+    const info = user.levelInfo || {
+      level: 1,
+      currentLevelXP: 0,
+      nextLevelXP: 200,
+      progressPercent: 0,
+      rank: 'E-Rank Novice',
+      rankBadge: 'E',
+      rankColor: '#94a3b8',
+      daysToNextRank: 3,
+      nextRank: 'D-Rank'
+    };
+
     el.hunterLevel.textContent = info.level;
-    el.rankTitle.textContent = info.title;
     el.rankName.textContent = info.rank;
     el.rankBadge.textContent = info.rankBadge;
     el.rankBadge.style.borderColor = info.rankColor;
     el.rankBadge.style.boxShadow = `0 0 15px ${info.rankColor}`;
+    el.rankBadgePill.textContent = `${info.rankBadge}-Rank`;
+    el.rankBadgePill.style.borderColor = info.rankColor;
+    el.rankBadgePill.style.color = info.rankColor;
 
     el.hunterXpLabel.textContent = `${info.currentLevelXP.toLocaleString()} / ${info.nextLevelXP.toLocaleString()} XP`;
     el.hunterXpPercent.textContent = `${info.progressPercent}%`;
     el.hunterXpBar.style.width = `${info.progressPercent}%`;
 
-    el.streakCount.textContent = `${user.current_streak || 0} Days Active Streak`;
+    const streak = user.current_streak || 0;
+    el.streakCount.textContent = `${streak} Days Active Streak`;
 
-    const av = avatarMeta[user.avatar] || avatarMeta['jinwoo'];
-    el.hunterAvatar.textContent = av.emoji;
+    if (info.rankBadge === 'S') {
+      el.nextRankInfo.textContent = '🌟 Highest Consistency Rank Achieved (S-Rank Supreme Hunter)';
+      el.rankStreakReq.textContent = '30+ Days Supreme Streak';
+    } else {
+      el.nextRankInfo.textContent = `Next Rank: Maintain streak for ${info.daysToNextRank} more consecutive day(s) to reach ${info.nextRank}`;
+      el.rankStreakReq.textContent = `${streak} days active streak`;
+    }
+
+    const t = themeMeta[user.theme] || themeMeta['monarch'];
+    el.hunterAvatar.textContent = t.emoji;
   }
 
   // --- LOAD QUESTS FOR TARGET DATE ---
@@ -442,7 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function attachQuestCardEvents() {
-    // Checkbox toggles
     document.querySelectorAll('.quest-checkbox').forEach(cb => {
       cb.addEventListener('change', async (e) => {
         const goalId = e.target.dataset.id;
@@ -452,23 +471,23 @@ document.addEventListener('DOMContentLoaded', () => {
           const res = await API.toggleGoal(goalId, state.date);
           const completed = res.toggle.completed;
 
-          // Sound effect
+          // Sound effect (themed!)
           if (completed) {
-            window.animeAudio.playQuestComplete();
+            window.animeAudio.playQuestComplete(state.user?.theme);
             spawnXpPopup(card, `+${res.toggle.xpChanged} XP!`);
           } else {
             window.animeAudio.playQuestUncheck();
           }
 
-          // Update user level state
+          // Update user level and consistency rank
           if (res.toggle.userLevel) {
-            const oldLevel = state.user.levelInfo?.level || 1;
+            const oldOrder = state.user.levelInfo?.order || 1;
             state.user.levelInfo = res.toggle.userLevel;
             state.user.current_streak = res.toggle.currentStreak;
             updateHunterHUD(state.user);
 
-            // Level up fanfare check!
-            if (res.toggle.userLevel.level > oldLevel) {
+            // Rank Up Fanfare Check! (Ascended from E->D, D->C, etc.)
+            if (res.toggle.userLevel.order > oldOrder) {
               window.animeAudio.playLevelUp();
               triggerCelebrationConfetti();
             }
@@ -489,7 +508,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Edit quest
     document.querySelectorAll('.btn-edit-quest').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const goalId = e.currentTarget.dataset.id;
@@ -500,7 +518,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Delete quest
     document.querySelectorAll('.btn-delete-quest').forEach(btn => {
       btn.addEventListener('click', async (e) => {
         const goalId = e.currentTarget.dataset.id;
@@ -566,7 +583,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el.heatmapGrid.appendChild(cell);
       });
 
-      // Stats
       el.statDaysTracked.textContent = data.summary.daysTracked;
       el.statPerfectDays.textContent = data.summary.perfectDays;
       el.statTotalQuests.textContent = data.summary.totalQuestsCompleted;
@@ -576,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- LEADERBOARD TAB ---
+  // --- LEADERBOARD TAB (RANKED BY CONSISTENCY: S > A > B > C > D > E) ---
   async function loadLeaderboard() {
     try {
       const data = await API.getLeaderboard();
@@ -586,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tr = document.createElement('tr');
         tr.className = hunter.isCurrent ? 'bg-cyan-500/10' : 'hover:bg-slate-800/40';
 
-        const av = avatarMeta[hunter.avatar] || avatarMeta['jinwoo'];
+        const t = themeMeta[hunter.theme] || themeMeta['monarch'];
 
         tr.innerHTML = `
           <td class="py-3 px-3 font-orbitron font-bold ${idx === 0 ? 'text-amber-400' : idx === 1 ? 'text-slate-300' : idx === 2 ? 'text-amber-600' : 'text-slate-500'}">
@@ -594,19 +610,21 @@ document.addEventListener('DOMContentLoaded', () => {
           </td>
           <td class="py-3 px-3">
             <div class="flex items-center gap-2">
-              <span class="text-base">${av.emoji}</span>
+              <span class="text-base">${t.emoji}</span>
               <span class="font-bold text-white">${escapeHtml(hunter.display_name)}</span>
               ${hunter.isCurrent ? '<span class="hud-tag text-[9px]">YOU</span>' : ''}
             </div>
           </td>
           <td class="py-3 px-3">
-            <span class="hud-tag text-[10px]" style="border-color:${hunter.levelInfo.rankColor}; color:${hunter.levelInfo.rankColor}">${hunter.levelInfo.rankBadge} • ${hunter.levelInfo.rank}</span>
-          </td>
-          <td class="py-3 px-3 font-orbitron text-cyan-300 font-semibold">
-            Lv. ${hunter.levelInfo.level}
+            <span class="hud-tag text-[10px]" style="border-color:${hunter.levelInfo.rankColor}; color:${hunter.levelInfo.rankColor}">
+              ${hunter.levelInfo.rankBadge} • ${hunter.levelInfo.rank}
+            </span>
           </td>
           <td class="py-3 px-3 font-semibold text-amber-400">
-            🔥 ${hunter.current_streak} Days
+            🔥 ${hunter.current_streak} Consecutive Days
+          </td>
+          <td class="py-3 px-3 font-orbitron text-cyan-300 font-semibold">
+            Lv. ${hunter.levelInfo.level} (${(hunter.levelInfo.currentLevelXP || 0)} XP)
           </td>
           <td class="py-3 px-3">
             ${hunter.isCurrent ? '<span class="text-slate-500 text-[11px]">Active</span>' : `
@@ -675,8 +693,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (res.user.theme) {
         setTheme(res.user.theme);
         el.themeSelect.value = res.user.theme;
+        window.animeAudio.playThemeSound(res.user.theme);
       }
-      window.animeAudio.playTone(660, 'sine', 0.2, 0.35, 0);
       showDashboard();
     } catch (err) {
       alert(err.message);
@@ -732,12 +750,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function setupEventListeners() {
     // Sound test on Starting Gate
     el.gateSoundTest.addEventListener('click', () => {
-      window.animeAudio.testSound();
+      const selTheme = document.querySelector('input[name="gate-theme"]:checked')?.value || 'monarch';
+      window.animeAudio.playThemeSound(selTheme);
     });
 
     // Sound check in Dashboard HUD
     el.btnSoundTestHud.addEventListener('click', () => {
-      window.animeAudio.testSound();
+      window.animeAudio.playThemeSound(state.user?.theme || el.themeSelect.value);
     });
 
     // Gate Auth Tab Switching
@@ -757,16 +776,23 @@ document.addEventListener('DOMContentLoaded', () => {
       window.animeAudio.playClick();
     });
 
-    // Gate Avatar Selector
-    document.querySelectorAll('#gate-avatar-selector label').forEach(lbl => {
-      lbl.addEventListener('click', () => {
-        document.querySelectorAll('#gate-avatar-selector label').forEach(l => {
-          l.classList.remove('border-2', 'border-cyan-400');
-          l.classList.add('border-slate-700');
+    // Gate Theme Selection: Clicking plays that theme's specific sound!
+    document.querySelectorAll('#gate-theme-selector .theme-card-option').forEach(card => {
+      card.addEventListener('click', () => {
+        const theme = card.dataset.theme;
+        document.querySelectorAll('#gate-theme-selector .theme-card-option').forEach(c => {
+          c.classList.remove('border-2', 'border-cyan-400');
+          c.classList.add('border', 'border-slate-700');
         });
-        lbl.classList.add('border-2', 'border-cyan-400');
-        lbl.classList.remove('border-slate-700');
-        window.animeAudio.playClick();
+        card.classList.remove('border', 'border-slate-700');
+        card.classList.add('border-2', 'border-cyan-400');
+
+        const radio = card.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+
+        // Change ambient canvas and play theme specific sound!
+        setTheme(theme);
+        window.animeAudio.playThemeSound(theme);
       });
     });
 
@@ -776,7 +802,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await API.login({ username: 'jinwoo', password: 'hunter123' });
         API.setToken(res.token);
         state.user = res.user;
-        window.animeAudio.playTone(660, 'sine', 0.2, 0.4, 0);
+        setTheme(res.user.theme || 'monarch');
+        window.animeAudio.playThemeSound('monarch');
         showDashboard();
       } catch (err) {
         alert(err.message);
@@ -788,7 +815,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const res = await API.login({ username: 'hunter', password: 'hunter123' });
         API.setToken(res.token);
         state.user = res.user;
-        window.animeAudio.playTone(660, 'sine', 0.2, 0.4, 0);
+        setTheme(res.user.theme || 'flame');
+        window.animeAudio.playThemeSound('flame');
         showDashboard();
       } catch (err) {
         alert(err.message);
@@ -805,34 +833,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         API.setToken(res.token);
         state.user = res.user;
-        window.animeAudio.playTone(660, 'sine', 0.2, 0.4, 0);
+        setTheme(res.user.theme || 'monarch');
+        window.animeAudio.playThemeSound(res.user.theme || 'monarch');
         showDashboard();
       } catch (err) {
         alert(err.message);
       }
     });
 
-    // Gate Form Register Submit -> DIRECTS TO CREATE TASK LIST FOR EVERY DAY!
+    // Gate Form Register Submit -> Launches "Create Task List" Onboarding
     el.gateFormRegister.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const selAvatar = document.querySelector('input[name="gate-avatar"]:checked')?.value || 'jinwoo';
+      const selTheme = document.querySelector('input[name="gate-theme"]:checked')?.value || 'monarch';
       try {
         const res = await API.register({
           username: el.gateRegUsername.value.trim(),
           display_name: el.gateRegDisplay.value.trim() || el.gateRegUsername.value.trim(),
           password: el.gateRegPassword.value,
-          avatar: selAvatar,
-          theme: 'monarch'
+          avatar: selTheme,
+          theme: selTheme
         });
         API.setToken(res.token);
         state.user = res.user;
+        setTheme(selTheme);
         updateHunterHUD(state.user);
 
-        // Sound & celebratory effect
-        window.animeAudio.playLevelUp();
+        // Play that theme's specific sound + confetti!
+        window.animeAudio.playThemeSound(selTheme);
         triggerCelebrationConfetti();
 
-        // Directly launch "Create Task List for Every Day" onboarding wizard!
+        // Direct to create task list for every day
         openOnboardingModal('master');
       } catch (err) {
         alert(err.message);
@@ -881,7 +911,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         await API.batchSetupGoals(customGoals);
-        window.animeAudio.playQuestComplete();
+        window.animeAudio.playThemeSound(state.user?.theme);
         triggerCelebrationConfetti();
         closeOnboardingModal();
         showDashboard();
@@ -893,10 +923,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Switch Hunter button (Logout to gate)
     el.btnHunterProfile.addEventListener('click', logoutToGate);
 
-    // Theme Selector
+    // Theme Selector on Dashboard HUD: Plays that theme's specific sound!
     el.themeSelect.addEventListener('change', (e) => {
-      setTheme(e.target.value);
-      window.animeAudio.playClick();
+      const newTheme = e.target.value;
+      setTheme(newTheme);
+      window.animeAudio.playThemeSound(newTheme);
     });
 
     // Sound toggle
@@ -982,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (confirm('Summon the standard 10 Hunter Quests into your log?')) {
         try {
           await API.restoreDefaults();
-          window.animeAudio.playTone(587, 'sine', 0.25, 0.4, 0);
+          window.animeAudio.playThemeSound(state.user?.theme);
           await loadQuestsForDate(state.date);
         } catch (err) {
           alert(err.message);
