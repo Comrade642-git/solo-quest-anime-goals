@@ -24,8 +24,201 @@
   <div class="cyber-grid"></div>
   <div class="scanlines"></div>
 
-  <!-- Main Container -->
-  <div class="app-container">
+  <!-- ============================================================== -->
+  <!-- 1. STARTING / GATE ENTRANCE PAGE (CREATE OR LOGIN)             -->
+  <!-- ============================================================== -->
+  <div id="view-auth-gate" class="relative z-20 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-xl anime-card p-6 md:p-8 border-2 border-cyan-400/60 shadow-[0_0_50px_rgba(56,189,248,0.35)]">
+      
+      <!-- Anime Portal Emblem -->
+      <div class="text-center mb-6">
+        <div class="w-20 h-20 mx-auto mb-3 rounded-2xl flex items-center justify-center bg-cyan-500/20 border-2 border-cyan-400 shadow-[0_0_25px_rgba(56,189,248,0.7)] animate-float">
+          <i data-lucide="shield-alert" class="w-10 h-10 text-cyan-300"></i>
+        </div>
+        <div class="flex items-center justify-center gap-2 mb-1">
+          <h1 class="text-2xl md:text-3xl font-extrabold font-orbitron tracking-wider text-glow text-white">SOLO QUEST</h1>
+          <span class="hud-tag">SYSTEM GATE</span>
+        </div>
+        <p class="text-xs text-cyan-300/80 font-kanji font-bold">デイリークエスト • 覚醒システム</p>
+        <p class="text-xs text-slate-300 mt-2 max-w-md mx-auto">
+          Conquer 10 daily goals, level up your hunter rank, and forge unshakeable discipline.
+        </p>
+
+        <!-- Audio unlock / test button -->
+        <div class="mt-3 flex items-center justify-center gap-2">
+          <button id="gate-sound-test" class="px-3 py-1 rounded-full bg-slate-900 border border-cyan-400/50 hover:border-cyan-300 text-[11px] font-bold text-cyan-300 flex items-center gap-1.5 transition">
+            <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+            <span>🔊 Click to Test Anime Sound</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Auth Switch Tabs -->
+      <div class="flex gap-2 p-1 bg-slate-950/80 rounded-xl border border-slate-800 mb-6">
+        <button id="gate-tab-login" class="flex-1 py-2.5 rounded-lg text-xs font-bold font-rajdhani tracking-wider transition bg-cyan-500/20 text-cyan-300 border border-cyan-400 shadow-[0_0_15px_rgba(56,189,248,0.3)]">
+          ⚔️ SIGN IN (EXISTING HUNTER)
+        </button>
+        <button id="gate-tab-register" class="flex-1 py-2.5 rounded-lg text-xs font-bold font-rajdhani tracking-wider transition text-slate-400 hover:text-white border border-transparent">
+          ✨ AWAKEN (CREATE HUNTER)
+        </button>
+      </div>
+
+      <!-- FORM: LOGIN -->
+      <form id="gate-form-login" class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Hunter Codename (Username)</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+              <i data-lucide="user" class="w-4 h-4"></i>
+            </span>
+            <input type="text" id="gate-login-username" required placeholder="e.g. jinwoo" class="w-full pl-9 bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Security Key (Password)</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+              <i data-lucide="lock" class="w-4 h-4"></i>
+            </span>
+            <input type="password" id="gate-login-password" required placeholder="Enter password" class="w-full pl-9 bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold font-orbitron tracking-wide text-xs transition shadow-[0_0_20px_rgba(56,189,248,0.5)]">
+          ENTER SYSTEM GATE ➔
+        </button>
+      </form>
+
+      <!-- FORM: CREATE / REGISTER -->
+      <form id="gate-form-register" class="space-y-4 text-xs hidden">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Choose Hunter Codename (Username) *</label>
+          <input type="text" id="gate-reg-username" required placeholder="e.g. shadow_monarch" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Display Title / Name</label>
+          <input type="text" id="gate-reg-display" placeholder="e.g. Sung Jin-Woo" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Security Key (Password) *</label>
+          <input type="password" id="gate-reg-password" required placeholder="Choose a password (min 4 characters)" class="w-full bg-slate-900/90 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Select Hunter Avatar & Class</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1" id="gate-avatar-selector">
+            <label class="cursor-pointer border-2 border-cyan-400 rounded-lg p-2 text-center bg-slate-800/80">
+              <input type="radio" name="gate-avatar" value="jinwoo" checked class="hidden">
+              <div class="text-xl mb-0.5">⚔️</div>
+              <span class="text-[11px] font-bold block text-cyan-300">Jin-Woo</span>
+            </label>
+            <label class="cursor-pointer border border-slate-700 rounded-lg p-2 text-center bg-slate-800/80">
+              <input type="radio" name="gate-avatar" value="cyberpunk" class="hidden">
+              <div class="text-xl mb-0.5">⚡</div>
+              <span class="text-[11px] font-bold block text-slate-300">Cyber Ninja</span>
+            </label>
+            <label class="cursor-pointer border border-slate-700 rounded-lg p-2 text-center bg-slate-800/80">
+              <input type="radio" name="gate-avatar" value="hashira" class="hidden">
+              <div class="text-xl mb-0.5">🔥</div>
+              <span class="text-[11px] font-bold block text-slate-300">Hashira</span>
+            </label>
+            <label class="cursor-pointer border border-slate-700 rounded-lg p-2 text-center bg-slate-800/80">
+              <input type="radio" name="gate-avatar" value="ghibli" class="hidden">
+              <div class="text-xl mb-0.5">🍃</div>
+              <span class="text-[11px] font-bold block text-slate-300">Wanderer</span>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-orbitron tracking-wide text-xs transition shadow-[0_0_20px_rgba(52,211,153,0.5)]">
+          AWAKEN & CONFIGURE DAILY 10 GOALS ➔
+        </button>
+      </form>
+
+      <!-- Fast Demo Access -->
+      <div class="mt-6 pt-4 border-t border-slate-800">
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2 text-center">Or Quick-Start Demo Profile:</p>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="gate-btn-demo-jinwoo" class="py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+            <span>⚔️</span>
+            <span>Sung Jin-Woo (Lv 7)</span>
+          </button>
+          <button id="gate-btn-demo-hunter" class="py-2 px-3 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+            <span>⚡</span>
+            <span>Novice Hunter (Lv 2)</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- 2. ONBOARDING: SET UP DAILY 10 GOALS RIGHT AFTER REGISTRATION  -->
+  <!-- ============================================================== -->
+  <div id="modal-onboarding" class="modal-overlay hidden">
+    <div class="anime-card w-full max-w-2xl p-6 md:p-8 relative border-2 border-emerald-400 shadow-[0_0_50px_rgba(52,211,153,0.4)] max-h-[90vh] overflow-y-auto">
+      
+      <div class="text-center mb-5">
+        <div class="w-14 h-14 mx-auto mb-2 rounded-xl bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-2xl text-emerald-300">
+          📜
+        </div>
+        <h2 class="text-xl md:text-2xl font-bold font-orbitron text-white text-glow">CONFIGURE YOUR DAILY 10 GOALS</h2>
+        <p class="text-xs text-emerald-300 font-kanji font-bold mt-0.5">毎日の日課鍛錬の設計</p>
+        <p class="text-xs text-slate-300 mt-2 max-w-lg mx-auto">
+          Welcome to the Guild! Your hunter strength depends on what you execute daily. Review and customize the 10 goals you want to conquer every day.
+        </p>
+      </div>
+
+      <!-- Quick Preset Selector Buttons -->
+      <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800 mb-5">
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">⚡ Quick 10-Goal Presets:</p>
+        <div class="flex flex-wrap gap-2 text-xs">
+          <button type="button" id="preset-master" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-semibold hover:bg-cyan-500/30 transition">
+            ⚔️ Master Hunter (Balanced 10)
+          </button>
+          <button type="button" id="preset-scholar" class="px-3 py-1.5 rounded-lg bg-purple-500/20 border border-purple-400 text-purple-300 font-semibold hover:bg-purple-500/30 transition">
+            🧠 Scholar & Code Focus
+          </button>
+          <button type="button" id="preset-fitness" class="px-3 py-1.5 rounded-lg bg-orange-500/20 border border-orange-400 text-orange-300 font-semibold hover:bg-orange-500/30 transition">
+            🔥 Iron Beast Fitness
+          </button>
+        </div>
+      </div>
+
+      <!-- 10 Goal Rows Container -->
+      <form id="form-onboarding-goals" class="space-y-2.5 text-xs">
+        <div class="flex items-center justify-between text-xs font-semibold mb-2 px-1">
+          <span class="text-slate-300 font-bold uppercase tracking-wider">Your Daily 10 Objectives:</span>
+          <span id="onboarding-goal-count" class="hud-tag text-emerald-300 border-emerald-400">10 / 10 Goals Defined</span>
+        </div>
+
+        <div id="onboarding-goals-list" class="space-y-2 max-h-[380px] overflow-y-auto pr-1">
+          <!-- Dynamically populated 10 inputs -->
+        </div>
+
+        <div class="pt-2 flex items-center justify-between">
+          <button type="button" id="btn-onboarding-add-row" class="px-3 py-1.5 rounded bg-slate-800 border border-slate-700 hover:border-cyan-400 text-cyan-300 text-xs font-semibold transition">
+            + Add Another Goal
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold font-orbitron tracking-wide text-xs transition shadow-[0_0_20px_rgba(52,211,153,0.5)]">
+            ACTIVATE DAILY QUEST PROTOCOL ➔
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- 3. MAIN DASHBOARD (ACTIVE WHEN LOGGED IN)                       -->
+  <!-- ============================================================== -->
+  <div id="view-dashboard" class="app-container hidden">
 
     <!-- Top Navigation & System HUD -->
     <header class="flex flex-wrap items-center justify-between gap-4 mb-6 anime-card p-4">
@@ -36,13 +229,13 @@
         <div>
           <div class="flex items-center gap-2">
             <h1 class="text-xl font-bold font-orbitron tracking-wider text-glow text-white">SOLO QUEST</h1>
-            <span class="hud-tag">SYSTEM v2.4</span>
+            <span class="hud-tag">SYSTEM v2.5</span>
           </div>
           <p class="text-xs text-slate-400 font-kanji">デイリークエスト • 日課鍛錬システム</p>
         </div>
       </div>
 
-      <!-- Controls: Theme, Sound, Hunter Switcher -->
+      <!-- Controls: Theme, Sound, Logout / Switch Hunter -->
       <div class="flex items-center flex-wrap gap-2.5">
         <!-- Theme Selector -->
         <div class="relative inline-block text-left">
@@ -60,9 +253,14 @@
           <i id="sound-icon" data-lucide="volume-2" class="w-4 h-4"></i>
         </button>
 
-        <!-- Switch / Login Button -->
-        <button id="btn-hunter-profile" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-400/40 hover:border-cyan-400 text-xs font-semibold text-cyan-300 transition">
-          <i data-lucide="users" class="w-4 h-4"></i>
+        <!-- Test Audio Direct Button -->
+        <button id="btn-sound-test-hud" class="px-2.5 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700 hover:border-cyan-400 text-[11px] font-bold text-cyan-300 transition" title="Test audio chimes">
+          <span>🔊 Sound Check</span>
+        </button>
+
+        <!-- Switch / Exit Gate Button -->
+        <button id="btn-hunter-profile" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-400/40 hover:border-cyan-400 text-xs font-semibold text-cyan-300 transition">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
           <span>Switch Hunter</span>
         </button>
       </div>
@@ -76,7 +274,7 @@
         <div class="md:col-span-5 flex items-center gap-4">
           <div class="relative">
             <div id="hunter-avatar-img" class="w-16 h-16 rounded-full overflow-hidden border-2 border-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.5)] flex items-center justify-center bg-slate-800 text-2xl font-bold font-orbitron text-cyan-300">
-              JW
+              ⚔️
             </div>
             <div id="rank-badge" class="absolute -bottom-1 -right-1 rank-badge text-xs" style="width: 28px; height: 28px; font-size: 0.75rem;">
               S
@@ -218,7 +416,7 @@
 
       <!-- Quick Restore Template Footer -->
       <div class="flex items-center justify-between text-xs text-slate-500 pt-2">
-        <span>Need fresh inspirations for your daily 10 goals?</span>
+        <span>Need fresh inspirations or want to reset to classic 10 goals?</span>
         <button id="btn-restore-defaults" class="text-cyan-400 hover:underline flex items-center gap-1 font-semibold">
           <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
           <span>Summon 10 Classic Hunter Quests</span>
@@ -314,7 +512,7 @@
 
   </div>
 
-  <!-- MODAL: ADD / EDIT QUEST -->
+  <!-- MODAL: ADD / EDIT SINGLE QUEST -->
   <div id="modal-quest" class="modal-overlay hidden">
     <div class="anime-card w-full max-w-md p-6 relative border border-cyan-400/60 shadow-[0_0_30px_rgba(56,189,248,0.3)]">
       <div class="flex items-center justify-between mb-4">
@@ -360,89 +558,6 @@
           <button type="submit" class="px-5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition shadow-[0_0_15px_rgba(56,189,248,0.5)]">Save Quest</button>
         </div>
       </form>
-    </div>
-  </div>
-
-  <!-- MODAL: HUNTER REGISTRY / AUTH & SWITCH -->
-  <div id="modal-auth" class="modal-overlay hidden">
-    <div class="anime-card w-full max-w-md p-6 relative border border-cyan-400/60 shadow-[0_0_30px_rgba(56,189,248,0.3)]">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h3 class="text-lg font-bold font-orbitron text-white">HUNTER REGISTRY</h3>
-          <p class="text-xs text-slate-400">Switch Hunter, Login, or Register a New Profile</p>
-        </div>
-        <button id="btn-close-auth-modal" class="text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <!-- Quick Switch Hunter List -->
-      <div class="mb-5 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
-        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Active Hunters (1-Click Switch):</p>
-        <div id="quick-hunters-list" class="space-y-2">
-          <!-- Dynamically populated hunters -->
-        </div>
-      </div>
-
-      <div class="border-t border-slate-800 pt-4">
-        <!-- Auth tabs: Login vs Register -->
-        <div class="flex gap-2 mb-4">
-          <button id="auth-tab-login" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400">Sign In</button>
-          <button id="auth-tab-register" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 border border-slate-700">New Hunter</button>
-        </div>
-
-        <!-- Login Form -->
-        <form id="form-login" class="space-y-3 text-xs">
-          <div>
-            <label class="block text-slate-300 mb-1">Hunter Codename (Username)</label>
-            <input type="text" id="login-username" required placeholder="jinwoo or hunter" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
-          </div>
-          <div>
-            <label class="block text-slate-300 mb-1">Security Key (Password)</label>
-            <input type="password" id="login-password" required placeholder="hunter123" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
-          </div>
-          <button type="submit" class="w-full py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition shadow-[0_0_15px_rgba(56,189,248,0.4)] mt-2">Enter Gate</button>
-        </form>
-
-        <!-- Register Form -->
-        <form id="form-register" class="space-y-3 text-xs hidden">
-          <div>
-            <label class="block text-slate-300 mb-1">Codename (Username) *</label>
-            <input type="text" id="reg-username" required placeholder="e.g. shadow_lord" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
-          </div>
-          <div>
-            <label class="block text-slate-300 mb-1">Display Name</label>
-            <input type="text" id="reg-display" placeholder="e.g. Shadow Lord" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
-          </div>
-          <div>
-            <label class="block text-slate-300 mb-1">Security Key (Password) *</label>
-            <input type="password" id="reg-password" required placeholder="Choose a password" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-cyan-400">
-          </div>
-          <div>
-            <label class="block text-slate-300 mb-1">Choose Hunter Avatar</label>
-            <div class="grid grid-cols-4 gap-2 pt-1" id="avatar-selector">
-              <label class="cursor-pointer border-2 border-cyan-400 rounded-lg p-1 text-center bg-slate-800">
-                <input type="radio" name="reg-avatar" value="jinwoo" checked class="hidden">
-                <span class="text-xs font-bold block text-cyan-300">⚔️ Jinwoo</span>
-              </label>
-              <label class="cursor-pointer border border-slate-700 rounded-lg p-1 text-center bg-slate-800">
-                <input type="radio" name="reg-avatar" value="cyberpunk" class="hidden">
-                <span class="text-xs font-bold block text-slate-300">⚡ Cyber</span>
-              </label>
-              <label class="cursor-pointer border border-slate-700 rounded-lg p-1 text-center bg-slate-800">
-                <input type="radio" name="reg-avatar" value="hashira" class="hidden">
-                <span class="text-xs font-bold block text-slate-300">🔥 Hashira</span>
-              </label>
-              <label class="cursor-pointer border border-slate-700 rounded-lg p-1 text-center bg-slate-800">
-                <input type="radio" name="reg-avatar" value="ghibli" class="hidden">
-                <span class="text-xs font-bold block text-slate-300">🍃 Ghibli</span>
-              </label>
-            </div>
-          </div>
-          <button type="submit" class="w-full py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold transition shadow-[0_0_15px_rgba(52,211,153,0.4)] mt-2">Awaken as Hunter</button>
-        </form>
-
-      </div>
     </div>
   </div>
 

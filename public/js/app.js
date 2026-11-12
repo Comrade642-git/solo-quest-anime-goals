@@ -1,4 +1,4 @@
-// Solo Quest - Application Controller & State Management
+// Solo Quest - Application Controller & State Management v2.5
 document.addEventListener('DOMContentLoaded', () => {
   // Application State
   const state = {
@@ -10,11 +10,81 @@ document.addEventListener('DOMContentLoaded', () => {
     activeTab: 'quests'
   };
 
+  // Preset 10-Goal Archetypes
+  const goalPresets = {
+    master: [
+      { title: 'Morning Physical Training (100 Push-ups / Core)', category: 'Strength', xp: 50 },
+      { title: '10,000 Steps / Cardio Mobility', category: 'Agility', xp: 50 },
+      { title: 'Deep Focus Work / Skill Mastery (2 Hours)', category: 'Intelligence', xp: 60 },
+      { title: 'Drink 2.5 Liters of Pure Water', category: 'Vitality', xp: 30 },
+      { title: 'Read 20 Pages of Knowledge / Wisdom', category: 'Intelligence', xp: 40 },
+      { title: 'Clean Nutrient Hunter Diet (Zero Junk)', category: 'Vitality', xp: 40 },
+      { title: '15 Minutes Meditation & Spiritual Focus', category: 'Spirit', xp: 35 },
+      { title: 'Build or Code Daily Project Feature', category: 'Intelligence', xp: 50 },
+      { title: 'Workspace Cleanse & Organization', category: 'Discipline', xp: 30 },
+      { title: '8 Hours Mana Regeneration Sleep', category: 'Vitality', xp: 50 }
+    ],
+    scholar: [
+      { title: 'Morning Deep Focus Block (90 Minutes)', category: 'Intelligence', xp: 60 },
+      { title: 'Read 30 Pages of Technical / Book Material', category: 'Intelligence', xp: 50 },
+      { title: 'Write / Review 1 Chapter or Code Module', category: 'Intelligence', xp: 50 },
+      { title: 'Solve 2 Algorithmic or Problem-Solving Tasks', category: 'Intelligence', xp: 45 },
+      { title: 'Language or New Skill Practice (20 Mins)', category: 'Spirit', xp: 35 },
+      { title: 'Stay Hydrated (2 Liters Water)', category: 'Vitality', xp: 30 },
+      { title: 'Light Workout or 30 Min Walk', category: 'Agility', xp: 40 },
+      { title: 'Clear Inbox & Priority Task Planning', category: 'Discipline', xp: 30 },
+      { title: 'Review Daily Journal & Lessons Learned', category: 'Spirit', xp: 30 },
+      { title: '8 Hours Restful Sleep Recovery', category: 'Vitality', xp: 50 }
+    ],
+    fitness: [
+      { title: '100 Push-ups & 100 Squats', category: 'Strength', xp: 60 },
+      { title: '5km Endurance Run or High-Intensity Cardio', category: 'Agility', xp: 60 },
+      { title: 'Core Workout & 3-Minute Plank', category: 'Strength', xp: 45 },
+      { title: 'Zero Added Sugar / Clean High Protein Meals', category: 'Vitality', xp: 50 },
+      { title: 'Drink 3 Liters of Water Throughout the Day', category: 'Vitality', xp: 35 },
+      { title: 'Post-Workout Full Body Stretching (15 Mins)', category: 'Agility', xp: 30 },
+      { title: 'Cold Shower / Wim Hof Breathing Session', category: 'Spirit', xp: 35 },
+      { title: '10,000 Total Steps Tracked', category: 'Agility', xp: 40 },
+      { title: 'Prepare Tomorrow’s Nutrition & Gear', category: 'Discipline', xp: 30 },
+      { title: '8 Hours Uninterrupted Sleep', category: 'Vitality', xp: 50 }
+    ]
+  };
+
   // DOM Elements
   const el = {
+    // Top Views
+    viewAuthGate: document.getElementById('view-auth-gate'),
+    viewDashboard: document.getElementById('view-dashboard'),
+
+    // Starting Gate Elements
+    gateSoundTest: document.getElementById('gate-sound-test'),
+    gateTabLogin: document.getElementById('gate-tab-login'),
+    gateTabRegister: document.getElementById('gate-tab-register'),
+    gateFormLogin: document.getElementById('gate-form-login'),
+    gateFormRegister: document.getElementById('gate-form-register'),
+    gateLoginUsername: document.getElementById('gate-login-username'),
+    gateLoginPassword: document.getElementById('gate-login-password'),
+    gateRegUsername: document.getElementById('gate-reg-username'),
+    gateRegDisplay: document.getElementById('gate-reg-display'),
+    gateRegPassword: document.getElementById('gate-reg-password'),
+    gateBtnDemoJinwoo: document.getElementById('gate-btn-demo-jinwoo'),
+    gateBtnDemoHunter: document.getElementById('gate-btn-demo-hunter'),
+
+    // Onboarding Modal (Create 10 Goals Flow)
+    modalOnboarding: document.getElementById('modal-onboarding'),
+    formOnboardingGoals: document.getElementById('form-onboarding-goals'),
+    onboardingGoalsList: document.getElementById('onboarding-goals-list'),
+    onboardingGoalCount: document.getElementById('onboarding-goal-count'),
+    btnOnboardingAddRow: document.getElementById('btn-onboarding-add-row'),
+    presetMaster: document.getElementById('preset-master'),
+    presetScholar: document.getElementById('preset-scholar'),
+    presetFitness: document.getElementById('preset-fitness'),
+
+    // Dashboard HUD
     themeSelect: document.getElementById('theme-select'),
     btnSoundToggle: document.getElementById('btn-sound-toggle'),
     soundIcon: document.getElementById('sound-icon'),
+    btnSoundTestHud: document.getElementById('btn-sound-test-hud'),
     btnHunterProfile: document.getElementById('btn-hunter-profile'),
 
     // Hunter profile
@@ -61,19 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCloseQuestModal: document.getElementById('btn-close-quest-modal'),
     btnCancelQuest: document.getElementById('btn-cancel-quest'),
 
-    modalAuth: document.getElementById('modal-auth'),
-    btnCloseAuthModal: document.getElementById('btn-close-auth-modal'),
-    quickHuntersList: document.getElementById('quick-hunters-list'),
-    authTabLogin: document.getElementById('auth-tab-login'),
-    authTabRegister: document.getElementById('auth-tab-register'),
-    formLogin: document.getElementById('form-login'),
-    formRegister: document.getElementById('form-register'),
-    loginUsername: document.getElementById('login-username'),
-    loginPassword: document.getElementById('login-password'),
-    regUsername: document.getElementById('reg-username'),
-    regDisplay: document.getElementById('reg-display'),
-    regPassword: document.getElementById('reg-password'),
-
     modalCelebrate: document.getElementById('modal-celebrate'),
     btnCloseCelebrate: document.getElementById('btn-close-celebrate'),
 
@@ -88,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     countdownTimer: document.getElementById('countdown-timer')
   };
 
-  // Category Icon & Color Mapping
   const categoryMeta = {
     Strength: { color: 'text-orange-400 bg-orange-400/10 border-orange-400/30', icon: '⚔️' },
     Agility: { color: 'text-amber-400 bg-amber-400/10 border-amber-400/30', icon: '⚡' },
@@ -98,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
     Spirit: { color: 'text-purple-400 bg-purple-400/10 border-purple-400/30', icon: '✨' }
   };
 
-  // Avatar Icons
   const avatarMeta = {
     jinwoo: { label: 'Sung Jin-Woo', emoji: '⚔️', bg: 'bg-indigo-900 text-cyan-300' },
     cyberpunk: { label: 'Cyber Ninja', emoji: '⚡', bg: 'bg-pink-900 text-rose-300' },
@@ -122,35 +177,120 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check sound state
     updateSoundIcon();
 
-    // Check login or auto-login with default hunter
-    try {
-      if (API.getToken()) {
+    // Check if user has active session
+    const token = API.getToken();
+    if (token) {
+      try {
         const me = await API.getMe();
         state.user = me;
-      } else {
-        // Auto sign-in to demo hunter 'jinwoo'
-        const res = await API.login({ username: 'jinwoo', password: 'hunter123' });
-        API.setToken(res.token);
-        state.user = res.user;
+        showDashboard();
+      } catch (err) {
+        console.warn('Session expired or invalid, showing starting gate:', err);
+        API.setToken(null);
+        showAuthGate();
       }
-    } catch (err) {
-      console.warn('Initial auth check fell back to hunter login:', err);
-      try {
-        const res = await API.login({ username: 'jinwoo', password: 'hunter123' });
-        API.setToken(res.token);
-        state.user = res.user;
-      } catch (e) {
-        openAuthModal();
-      }
-    }
-
-    if (state.user) {
-      updateHunterHUD(state.user);
-      await loadQuestsForDate(state.date);
+    } else {
+      // Show Starting Page by default
+      showAuthGate();
     }
 
     setupEventListeners();
     refreshIcons();
+  }
+
+  // --- VIEW SWITCHING ---
+  function showAuthGate() {
+    el.viewAuthGate.classList.remove('hidden');
+    el.viewDashboard.classList.add('hidden');
+    refreshIcons();
+  }
+
+  function showDashboard() {
+    el.viewAuthGate.classList.add('hidden');
+    el.viewDashboard.classList.remove('hidden');
+    updateHunterHUD(state.user);
+    loadQuestsForDate(state.date);
+    refreshIcons();
+  }
+
+  function logoutToGate() {
+    API.setToken(null);
+    state.user = null;
+    window.animeAudio.playClick();
+    showAuthGate();
+  }
+
+  // --- ONBOARDING FLOW: CREATE 10 GOALS ---
+  function openOnboardingModal(presetKey = 'master') {
+    populateOnboardingRows(goalPresets[presetKey] || goalPresets.master);
+    el.modalOnboarding.classList.remove('hidden');
+    refreshIcons();
+  }
+
+  function closeOnboardingModal() {
+    el.modalOnboarding.classList.add('hidden');
+  }
+
+  function populateOnboardingRows(goalsArray) {
+    el.onboardingGoalsList.innerHTML = '';
+    goalsArray.forEach((g, idx) => {
+      addOnboardingRow(g.title, g.category, g.xp, idx);
+    });
+    updateOnboardingCounter();
+  }
+
+  function addOnboardingRow(title = '', category = 'Discipline', xp = 50, index = null) {
+    const row = document.createElement('div');
+    row.className = 'onboarding-row flex items-center gap-2 p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 transition';
+    
+    const rowNum = index !== null ? index + 1 : el.onboardingGoalsList.children.length + 1;
+
+    row.innerHTML = `
+      <span class="w-6 h-6 rounded bg-slate-800 flex items-center justify-center font-orbitron font-bold text-[11px] text-cyan-300 flex-shrink-0 row-index">
+        #${rowNum}
+      </span>
+      <input type="text" class="goal-row-title flex-1 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-white text-xs focus:outline-none focus:border-cyan-400" required placeholder="e.g. 100 Push-ups / Read 30 mins" value="${escapeHtml(title)}">
+      <select class="goal-row-cat bg-slate-950 border border-slate-700 rounded px-2 py-1.5 text-slate-300 text-xs focus:outline-none focus:border-cyan-400">
+        <option value="Strength" ${category === 'Strength' ? 'selected' : ''}>⚔️ Strength</option>
+        <option value="Agility" ${category === 'Agility' ? 'selected' : ''}>⚡ Agility</option>
+        <option value="Intelligence" ${category === 'Intelligence' ? 'selected' : ''}>🧠 Intelligence</option>
+        <option value="Vitality" ${category === 'Vitality' ? 'selected' : ''}>🌿 Vitality</option>
+        <option value="Discipline" ${category === 'Discipline' ? 'selected' : ''}>🎯 Discipline</option>
+        <option value="Spirit" ${category === 'Spirit' ? 'selected' : ''}>✨ Spirit</option>
+      </select>
+      <input type="number" class="goal-row-xp w-16 bg-slate-950 border border-slate-700 rounded px-2 py-1.5 text-amber-400 text-xs font-mono focus:outline-none" min="10" max="200" value="${xp}">
+      <button type="button" class="btn-remove-row p-1.5 text-slate-400 hover:text-rose-400 transition" title="Remove goal">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    `;
+
+    row.querySelector('.btn-remove-row').addEventListener('click', () => {
+      row.remove();
+      renumberOnboardingRows();
+      updateOnboardingCounter();
+    });
+
+    el.onboardingGoalsList.appendChild(row);
+    refreshIcons();
+    renumberOnboardingRows();
+    updateOnboardingCounter();
+  }
+
+  function renumberOnboardingRows() {
+    const rows = el.onboardingGoalsList.querySelectorAll('.onboarding-row');
+    rows.forEach((r, idx) => {
+      r.querySelector('.row-index').textContent = `#${idx + 1}`;
+    });
+  }
+
+  function updateOnboardingCounter() {
+    const count = el.onboardingGoalsList.querySelectorAll('.onboarding-row').length;
+    el.onboardingGoalCount.textContent = `${count} / 10 Goals Defined`;
+    if (count === 10) {
+      el.onboardingGoalCount.className = 'hud-tag text-emerald-300 border-emerald-400';
+    } else {
+      el.onboardingGoalCount.className = 'hud-tag text-cyan-300 border-cyan-400';
+    }
   }
 
   // --- THEME & SOUND ---
@@ -194,7 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     el.streakCount.textContent = `${user.current_streak || 0} Days Active Streak`;
 
-    // Avatar
     const av = avatarMeta[user.avatar] || avatarMeta['jinwoo'];
     el.hunterAvatar.textContent = av.emoji;
   }
@@ -206,7 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
       state.dayStatus = data;
       state.goals = data.goals || [];
 
-      // Update HUD level/streak if returned
       if (data.userLevel && state.user) {
         state.user.levelInfo = data.userLevel;
         state.user.current_streak = data.currentStreak;
@@ -395,10 +533,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function triggerCelebrationConfetti() {
     if (window.confetti) {
       window.confetti({
-        particleCount: 100,
-        spread: 80,
+        particleCount: 110,
+        spread: 85,
         origin: { y: 0.6 },
-        colors: ['#38bdf8', '#c084fc', '#facc15', '#f43f5e']
+        colors: ['#38bdf8', '#c084fc', '#facc15', '#f43f5e', '#34d399']
       });
     }
   }
@@ -520,48 +658,6 @@ document.addEventListener('DOMContentLoaded', () => {
     el.modalQuest.classList.add('hidden');
   }
 
-  async function openAuthModal() {
-    try {
-      const hunters = await API.getHunters();
-      el.quickHuntersList.innerHTML = '';
-
-      hunters.forEach(h => {
-        const av = avatarMeta[h.avatar] || avatarMeta['jinwoo'];
-        const isCurrent = state.user && state.user.id === h.id;
-
-        const row = document.createElement('div');
-        row.className = `flex items-center justify-between p-2 rounded-lg border ${isCurrent ? 'bg-cyan-500/10 border-cyan-400' : 'bg-slate-800/60 border-slate-700'} hover:border-cyan-400 cursor-pointer transition`;
-        row.innerHTML = `
-          <div class="flex items-center gap-2.5">
-            <span class="text-xl">${av.emoji}</span>
-            <div>
-              <p class="font-bold text-white text-xs">${escapeHtml(h.display_name)} <span class="text-slate-400 font-normal">(@${escapeHtml(h.username)})</span></p>
-              <p class="text-[10px] text-cyan-300">Level ${h.levelInfo.level} • ${h.levelInfo.rankBadge} ${h.levelInfo.rank}</p>
-            </div>
-          </div>
-          <button class="px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300 font-bold text-[10px] hover:bg-cyan-500/40">
-            ${isCurrent ? 'Active Aura' : 'Select'}
-          </button>
-        `;
-
-        row.addEventListener('click', async () => {
-          await switchUser(h.id);
-          closeAuthModal();
-        });
-
-        el.quickHuntersList.appendChild(row);
-      });
-    } catch (e) {
-      console.warn('Failed to populate quick hunters list:', e);
-    }
-
-    el.modalAuth.classList.remove('hidden');
-  }
-
-  function closeAuthModal() {
-    el.modalAuth.classList.add('hidden');
-  }
-
   function openCelebrateModal() {
     el.modalCelebrate.classList.remove('hidden');
   }
@@ -580,8 +676,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setTheme(res.user.theme);
         el.themeSelect.value = res.user.theme;
       }
-      window.animeAudio.playTone(660, 'sine', 0.2, 0.15, 0);
-      await loadQuestsForDate(state.date);
+      window.animeAudio.playTone(660, 'sine', 0.2, 0.35, 0);
+      showDashboard();
     } catch (err) {
       alert(err.message);
     }
@@ -634,6 +730,169 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- EVENT LISTENERS SETUP ---
   function setupEventListeners() {
+    // Sound test on Starting Gate
+    el.gateSoundTest.addEventListener('click', () => {
+      window.animeAudio.testSound();
+    });
+
+    // Sound check in Dashboard HUD
+    el.btnSoundTestHud.addEventListener('click', () => {
+      window.animeAudio.testSound();
+    });
+
+    // Gate Auth Tab Switching
+    el.gateTabLogin.addEventListener('click', () => {
+      el.gateTabLogin.className = 'flex-1 py-2.5 rounded-lg text-xs font-bold font-rajdhani tracking-wider transition bg-cyan-500/20 text-cyan-300 border border-cyan-400 shadow-[0_0_15px_rgba(56,189,248,0.3)]';
+      el.gateTabRegister.className = 'flex-1 py-2.5 rounded-lg text-xs font-bold font-rajdhani tracking-wider transition text-slate-400 hover:text-white border border-transparent';
+      el.gateFormLogin.classList.remove('hidden');
+      el.gateFormRegister.classList.add('hidden');
+      window.animeAudio.playClick();
+    });
+
+    el.gateTabRegister.addEventListener('click', () => {
+      el.gateTabRegister.className = 'flex-1 py-2.5 rounded-lg text-xs font-bold font-rajdhani tracking-wider transition bg-emerald-500/20 text-emerald-300 border border-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.3)]';
+      el.gateTabLogin.className = 'flex-1 py-2.5 rounded-lg text-xs font-bold font-rajdhani tracking-wider transition text-slate-400 hover:text-white border border-transparent';
+      el.gateFormRegister.classList.remove('hidden');
+      el.gateFormLogin.classList.add('hidden');
+      window.animeAudio.playClick();
+    });
+
+    // Gate Avatar Selector
+    document.querySelectorAll('#gate-avatar-selector label').forEach(lbl => {
+      lbl.addEventListener('click', () => {
+        document.querySelectorAll('#gate-avatar-selector label').forEach(l => {
+          l.classList.remove('border-2', 'border-cyan-400');
+          l.classList.add('border-slate-700');
+        });
+        lbl.classList.add('border-2', 'border-cyan-400');
+        lbl.classList.remove('border-slate-700');
+        window.animeAudio.playClick();
+      });
+    });
+
+    // Gate Demo Logins
+    el.gateBtnDemoJinwoo.addEventListener('click', async () => {
+      try {
+        const res = await API.login({ username: 'jinwoo', password: 'hunter123' });
+        API.setToken(res.token);
+        state.user = res.user;
+        window.animeAudio.playTone(660, 'sine', 0.2, 0.4, 0);
+        showDashboard();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    el.gateBtnDemoHunter.addEventListener('click', async () => {
+      try {
+        const res = await API.login({ username: 'hunter', password: 'hunter123' });
+        API.setToken(res.token);
+        state.user = res.user;
+        window.animeAudio.playTone(660, 'sine', 0.2, 0.4, 0);
+        showDashboard();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    // Gate Form Login Submit
+    el.gateFormLogin.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const res = await API.login({
+          username: el.gateLoginUsername.value.trim(),
+          password: el.gateLoginPassword.value
+        });
+        API.setToken(res.token);
+        state.user = res.user;
+        window.animeAudio.playTone(660, 'sine', 0.2, 0.4, 0);
+        showDashboard();
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    // Gate Form Register Submit -> DIRECTS TO CREATE TASK LIST FOR EVERY DAY!
+    el.gateFormRegister.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const selAvatar = document.querySelector('input[name="gate-avatar"]:checked')?.value || 'jinwoo';
+      try {
+        const res = await API.register({
+          username: el.gateRegUsername.value.trim(),
+          display_name: el.gateRegDisplay.value.trim() || el.gateRegUsername.value.trim(),
+          password: el.gateRegPassword.value,
+          avatar: selAvatar,
+          theme: 'monarch'
+        });
+        API.setToken(res.token);
+        state.user = res.user;
+        updateHunterHUD(state.user);
+
+        // Sound & celebratory effect
+        window.animeAudio.playLevelUp();
+        triggerCelebrationConfetti();
+
+        // Directly launch "Create Task List for Every Day" onboarding wizard!
+        openOnboardingModal('master');
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+
+    // Onboarding Presets
+    el.presetMaster.addEventListener('click', () => {
+      populateOnboardingRows(goalPresets.master);
+      window.animeAudio.playClick();
+    });
+    el.presetScholar.addEventListener('click', () => {
+      populateOnboardingRows(goalPresets.scholar);
+      window.animeAudio.playClick();
+    });
+    el.presetFitness.addEventListener('click', () => {
+      populateOnboardingRows(goalPresets.fitness);
+      window.animeAudio.playClick();
+    });
+
+    // Onboarding Add Row
+    el.btnOnboardingAddRow.addEventListener('click', () => {
+      addOnboardingRow('', 'Discipline', 50);
+      window.animeAudio.playClick();
+    });
+
+    // Onboarding Form Submit -> Save Custom Tasks & Go to Dashboard
+    el.formOnboardingGoals.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const rows = el.onboardingGoalsList.querySelectorAll('.onboarding-row');
+      const customGoals = [];
+
+      rows.forEach(r => {
+        const title = r.querySelector('.goal-row-title').value.trim();
+        const category = r.querySelector('.goal-row-cat').value;
+        const xp_reward = parseInt(r.querySelector('.goal-row-xp').value) || 50;
+        if (title) {
+          customGoals.push({ title, category, xp_reward });
+        }
+      });
+
+      if (customGoals.length === 0) {
+        alert('Please define at least one daily goal objective.');
+        return;
+      }
+
+      try {
+        await API.batchSetupGoals(customGoals);
+        window.animeAudio.playQuestComplete();
+        triggerCelebrationConfetti();
+        closeOnboardingModal();
+        showDashboard();
+      } catch (err) {
+        alert('Failed to save daily goals: ' + err.message);
+      }
+    });
+
+    // Switch Hunter button (Logout to gate)
+    el.btnHunterProfile.addEventListener('click', logoutToGate);
+
     // Theme Selector
     el.themeSelect.addEventListener('change', (e) => {
       setTheme(e.target.value);
@@ -645,10 +904,6 @@ document.addEventListener('DOMContentLoaded', () => {
       window.animeAudio.toggle();
       updateSoundIcon();
     });
-
-    // Hunter Profile / Switch modal
-    el.btnHunterProfile.addEventListener('click', openAuthModal);
-    el.btnCloseAuthModal.addEventListener('click', closeAuthModal);
 
     // Tab buttons
     el.tabQuestsBtn.addEventListener('click', () => switchTab('quests'));
@@ -727,7 +982,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (confirm('Summon the standard 10 Hunter Quests into your log?')) {
         try {
           await API.restoreDefaults();
-          window.animeAudio.playTone(587, 'sine', 0.25, 0.15, 0);
+          window.animeAudio.playTone(587, 'sine', 0.25, 0.4, 0);
           await loadQuestsForDate(state.date);
         } catch (err) {
           alert(err.message);
@@ -737,78 +992,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Celebrate Modal close
     el.btnCloseCelebrate.addEventListener('click', closeCelebrateModal);
-
-    // Auth Modal Tabs
-    el.authTabLogin.addEventListener('click', () => {
-      el.authTabLogin.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400';
-      el.authTabRegister.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 border border-slate-700';
-      el.formLogin.classList.remove('hidden');
-      el.formRegister.classList.add('hidden');
-    });
-
-    el.authTabRegister.addEventListener('click', () => {
-      el.authTabRegister.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400';
-      el.authTabLogin.className = 'flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-slate-400 border border-slate-700';
-      el.formRegister.classList.remove('hidden');
-      el.formLogin.classList.add('hidden');
-    });
-
-    // Avatar selector inside register form
-    document.querySelectorAll('#avatar-selector label').forEach(lbl => {
-      lbl.addEventListener('click', () => {
-        document.querySelectorAll('#avatar-selector label').forEach(l => {
-          l.classList.remove('border-2', 'border-cyan-400');
-          l.classList.add('border-slate-700');
-        });
-        lbl.classList.add('border-2', 'border-cyan-400');
-        lbl.classList.remove('border-slate-700');
-      });
-    });
-
-    // Login Form Submit
-    el.formLogin.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      try {
-        const res = await API.login({
-          username: el.loginUsername.value.trim(),
-          password: el.loginPassword.value
-        });
-        API.setToken(res.token);
-        state.user = res.user;
-        updateHunterHUD(state.user);
-        if (res.user.theme) {
-          setTheme(res.user.theme);
-          el.themeSelect.value = res.user.theme;
-        }
-        closeAuthModal();
-        await loadQuestsForDate(state.date);
-      } catch (err) {
-        alert(err.message);
-      }
-    });
-
-    // Register Form Submit
-    el.formRegister.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const selAvatar = document.querySelector('input[name="reg-avatar"]:checked')?.value || 'jinwoo';
-      try {
-        const res = await API.register({
-          username: el.regUsername.value.trim(),
-          display_name: el.regDisplay.value.trim() || el.regUsername.value.trim(),
-          password: el.regPassword.value,
-          avatar: selAvatar,
-          theme: 'monarch'
-        });
-        API.setToken(res.token);
-        state.user = res.user;
-        updateHunterHUD(state.user);
-        triggerCelebrationConfetti();
-        closeAuthModal();
-        await loadQuestsForDate(state.date);
-      } catch (err) {
-        alert(err.message);
-      }
-    });
   }
 
   // --- UTILITIES ---

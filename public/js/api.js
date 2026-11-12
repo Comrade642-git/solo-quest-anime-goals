@@ -118,6 +118,13 @@ const API = {
     });
   },
 
+  batchSetupGoals(goals) {
+    return this.request('/api/goals/batch-setup', {
+      method: 'POST',
+      body: JSON.stringify({ goals })
+    });
+  },
+
   // History & Stats
   getHeatmap(days = 30) {
     return this.request(`/api/history/heatmap?days=${days}`);

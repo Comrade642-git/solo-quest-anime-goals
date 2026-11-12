@@ -102,4 +102,20 @@ router.post('/restore-defaults', (req, res) => {
   });
 });
 
+// Batch setup custom goals (used after registration onboarding)
+router.post('/batch-setup', (req, res) => {
+  const { goals } = req.body;
+  if (!Array.isArray(goals) || goals.length === 0) {
+    return res.status(400).json({ error: 'At least one goal is required to calibrate your quest log.' });
+  }
+
+  const updatedGoals = db.setCustomGoalsForUser(req.user.id, goals);
+  const dayStatus = db.getTodayGoalStatus(req.user.id);
+  res.json({
+    message: 'Daily Quest Protocol calibrated with your custom tasks!',
+    goals: updatedGoals,
+    dayStatus
+  });
+});
+
 module.exports = router;

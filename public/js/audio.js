@@ -1,19 +1,44 @@
-// Anime Audio Synthesizer (Zero external audio file dependencies!)
+// Anime Audio Synthesizer (Upgraded Web Audio Engine)
 class AnimeAudioEngine {
   constructor() {
     this.ctx = null;
+    this.masterGain = null;
     this.enabled = localStorage.getItem('quest_sound_enabled') !== 'false';
+    this.isUnlocked = false;
+
+    // Auto-unlock AudioContext on the very first user interaction anywhere
+    const unlockHandler = () => {
+      this.initContext();
+      if (this.ctx && this.ctx.state === 'suspended') {
+        this.ctx.resume().then(() => {
+          this.isUnlocked = true;
+        }).catch(err => console.warn('Audio resume error:', err));
+      } else if (this.ctx && this.ctx.state === 'running') {
+        this.isUnlocked = true;
+      }
+    };
+
+    window.addEventListener('pointerdown', unlockHandler, { once: false });
+    window.addEventListener('click', unlockHandler, { once: false });
+    window.addEventListener('keydown', unlockHandler, { once: false });
   }
 
   initContext() {
     if (!this.ctx) {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtx) {
-        this.ctx = new AudioCtx();
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+          this.ctx = new AudioCtx();
+          this.masterGain = this.ctx.createGain();
+          this.masterGain.gain.setValueAtTime(0.7, this.ctx.currentTime); // Crisp, clear volume
+          this.masterGain.connect(this.ctx.destination);
+        }
+      } catch (err) {
+        console.error('AudioContext initialization failed:', err);
       }
     }
     if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
+      this.ctx.resume().catch(() => {});
     }
   }
 
@@ -21,88 +46,117 @@ class AnimeAudioEngine {
     this.enabled = !this.enabled;
     localStorage.setItem('quest_sound_enabled', this.enabled ? 'true' : 'false');
     if (this.enabled) {
-      this.playClick();
+      this.initContext();
+      this.playTone(784, 'triangle', 0.15, 0.4);
     }
     return this.enabled;
   }
 
-  playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.1, delay = 0) {
+  playTone(freq, type = 'sine', duration = 0.2, volume = 0.35, delay = 0) {
     if (!this.enabled) return;
     this.initContext();
     if (!this.ctx) return;
 
-    setTimeout(() => {
-      try {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+    // If context is still suspended, try to resume
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
 
-        gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+    const startTime = this.ctx.currentTime + (delay || 0);
 
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
 
-        osc.start();
-        osc.stop(this.ctx.currentTime + duration);
-      } catch (e) {
-        // AudioContext error handling
-      }
-    }, delay * 1000);
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, startTime);
+
+      // Attack and decay envelope
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.linearRampToValueAtTime(volume, startTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain || this.ctx.destination);
+
+      osc.start(startTime);
+      osc.stop(startTime + duration + 0.05);
+    } catch (e) {
+      console.warn('Audio playback error:', e);
+    }
+  }
+
+  // Harmonic anime bell (dual tone for rich resonance)
+  playChime(freq, duration = 0.35, volume = 0.4, delay = 0) {
+    this.playTone(freq, 'sine', duration, volume * 0.8, delay);
+    this.playTone(freq * 2.01, 'triangle', duration * 0.7, volume * 0.4, delay); // Upper sparkle overtone
   }
 
   playQuestComplete() {
     if (!this.enabled) return;
-    // Energetic 3-tone anime success arpeggio
-    this.playTone(523.25, 'triangle', 0.2, 0.15, 0.0);    // C5
-    this.playTone(659.25, 'triangle', 0.2, 0.16, 0.08);   // E5
-    this.playTone(783.99, 'triangle', 0.25, 0.18, 0.16);  // G5
-    this.playTone(1046.50, 'sine', 0.4, 0.22, 0.24);     // C6
+    this.initContext();
+    // Energetic 4-note anime success arpeggio (C5 -> E5 -> G5 -> C6)
+    this.playChime(523.25, 0.25, 0.45, 0.0);
+    this.playChime(659.25, 0.25, 0.48, 0.08);
+    this.playChime(783.99, 0.30, 0.50, 0.16);
+    this.playChime(1046.50, 0.45, 0.55, 0.24);
   }
 
   playQuestUncheck() {
     if (!this.enabled) return;
-    this.playTone(392.00, 'sine', 0.12, 0.1, 0.0);
-    this.playTone(261.63, 'sine', 0.16, 0.1, 0.07);
+    this.playTone(392.00, 'sine', 0.15, 0.3, 0.0);
+    this.playTone(261.63, 'sine', 0.20, 0.3, 0.06);
   }
 
   playLevelUp() {
     if (!this.enabled) return;
-    // Grand anime fanfare chord progression
+    this.initContext();
+    // Epic anime rank up fanfare (A4 -> C#5 -> E5 -> A5 -> E6)
     const notes = [
-      { f: 440.00, t: 0.0 },   // A4
-      { f: 554.37, t: 0.1 },   // C#5
-      { f: 659.25, t: 0.2 },   // E5
-      { f: 880.00, t: 0.3 },   // A5
-      { f: 1108.73, t: 0.45 }, // C#6
-      { f: 1318.51, t: 0.6 }   // E6
+      { f: 440.00, t: 0.00, d: 0.25, v: 0.45 },
+      { f: 554.37, t: 0.10, d: 0.25, v: 0.48 },
+      { f: 659.25, t: 0.20, d: 0.30, v: 0.50 },
+      { f: 880.00, t: 0.32, d: 0.35, v: 0.55 },
+      { f: 1108.73, t: 0.44, d: 0.40, v: 0.55 },
+      { f: 1318.51, t: 0.56, d: 0.60, v: 0.60 }
     ];
     notes.forEach(n => {
-      this.playTone(n.f, 'triangle', 0.5, 0.2, n.t);
+      this.playChime(n.f, n.d, n.v, n.t);
     });
   }
 
   playAllCompleted() {
     if (!this.enabled) return;
-    // Victory fanfare!
+    this.initContext();
+    // Grand victory fanfare
     const victory = [
-      { f: 523.25, d: 0.15, t: 0.0 },
-      { f: 523.25, d: 0.15, t: 0.15 },
-      { f: 523.25, d: 0.15, t: 0.30 },
-      { f: 659.25, d: 0.3,  t: 0.45 },
-      { f: 587.33, d: 0.15, t: 0.75 },
-      { f: 659.25, d: 0.15, t: 0.90 },
-      { f: 783.99, d: 0.6,  t: 1.05 }
+      { f: 523.25, d: 0.18, t: 0.00, v: 0.45 },
+      { f: 523.25, d: 0.18, t: 0.15, v: 0.45 },
+      { f: 523.25, d: 0.18, t: 0.30, v: 0.45 },
+      { f: 659.25, d: 0.35, t: 0.45, v: 0.55 },
+      { f: 587.33, d: 0.20, t: 0.75, v: 0.50 },
+      { f: 659.25, d: 0.20, t: 0.90, v: 0.52 },
+      { f: 783.99, d: 0.70, t: 1.05, v: 0.60 }
     ];
     victory.forEach(v => {
-      this.playTone(v.f, 'sine', v.d, 0.22, v.t);
+      this.playChime(v.f, v.d, v.v, v.t);
     });
   }
 
   playClick() {
     if (!this.enabled) return;
-    this.playTone(880, 'sine', 0.04, 0.05, 0);
+    this.playTone(880, 'sine', 0.06, 0.35, 0);
+  }
+
+  testSound() {
+    this.initContext();
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume().then(() => {
+        this.playQuestComplete();
+      });
+    } else {
+      this.playQuestComplete();
+    }
   }
 }
 

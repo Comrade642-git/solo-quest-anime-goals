@@ -186,6 +186,35 @@ class QuestDatabase {
     return newUser;
   }
 
+  setCustomGoalsForUser(userId, goalsList) {
+    // Deactivate existing goals for this user
+    this.data.goals.forEach(g => {
+      if (g.user_id === userId) {
+        g.is_active = false;
+      }
+    });
+
+    // Add new custom goals
+    goalsList.forEach((q, index) => {
+      if (q.title && q.title.trim()) {
+        this.data.goals.push({
+          id: crypto.randomUUID(),
+          user_id: userId,
+          title: q.title.trim(),
+          description: q.description ? q.description.trim() : '',
+          category: q.category || 'Discipline',
+          xp_reward: Number(q.xp_reward) || 50,
+          icon: q.icon || 'check-circle',
+          order_index: index,
+          is_active: true,
+          created_at: new Date().toISOString()
+        });
+      }
+    });
+    this.save();
+    return this.getUserGoals(userId);
+  }
+
   updateUser(id, updates) {
     const user = this.findUserById(id);
     if (!user) return null;
